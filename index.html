@@ -298,6 +298,7 @@ function el(tag, attrs, ...children) {
     if (k === 'className') e.className = v;
     else if (k === 'style') Object.assign(e.style, v);
     else if (k.startsWith('on')) e.addEventListener(k.slice(2).toLowerCase(), v);
+    else if (typeof v === 'boolean') { if (v) e.setAttribute(k, ''); else e.removeAttribute(k); }
     else e.setAttribute(k, v);
   });
   children.flat().forEach(c => {
