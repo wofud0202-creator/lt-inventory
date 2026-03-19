@@ -277,18 +277,28 @@ async function loadAll() {
       apiGet({action:'getCakes'}),
       apiGet({action:'getLog', date: today()}),
     ]);
-    state.cakes = Array.isArray(cakes) ? cakes : DEF_CAKES;
-    state.log = (log && typeof log === 'object') ? log : {};
+    const loadedCakes = Array.isArray(cakes) && cakes.length > 0 ? cakes : null;
+    state.cakes = loadedCakes || loadLocalCakes();
+    state.log = (log && typeof log === 'object' && !log.error) ? log : {};
   } catch(e) {
+    state.cakes = loadLocalCakes();
     state.error = 'Google Sheets 연결에 실패했습니다.\nURL을 확인하거나 잠시 후 다시 시도하세요.';
   }
   state.loading = false; render();
 }
+function loadLocalCakes() {
+  try { const s = localStorage.getItem('lt_cakes_local'); if (s) return JSON.parse(s); } catch(e) {}
+  return JSON.parse(JSON.stringify(DEF_CAKES));
+}
+function saveLocalCakes(cakes) {
+  try { localStorage.setItem('lt_cakes_local', JSON.stringify(cakes)); } catch(e) {}
+}
 async function saveCakes(cakes) {
-  await apiGet({action:'saveCakes', data: JSON.stringify(cakes)});
+  saveLocalCakes(cakes);
+  try { await apiGet({action:'saveCakes', data: JSON.stringify(cakes)}); } catch(e) { console.warn('Sheets sync failed', e); }
 }
 async function saveLog(typeId, vals) {
-  await apiGet({action:'saveLog', date: today(), type: typeId, data: JSON.stringify(vals)});
+  try { await apiGet({action:'saveLog', date: today(), type: typeId, data: JSON.stringify(vals)}); } catch(e) { console.warn('Sheets log sync failed', e); }
 }
 
 /* ─── RENDER ─────────────────────────────────── */
@@ -488,7 +498,7 @@ function renderInput() {
 
     const saveBtn = el('button',{
       className:'save-btn' + (state.saved?' success':''),
-      disabled: state.saving || !active.length,
+      disabled: state.saving,
       onClick: async ()=>{
         state.saving = true; render();
         try {
