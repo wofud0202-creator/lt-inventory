@@ -9,29 +9,25 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --burg:#5C1830;--burg-dark:#3D0F1E;--burg-light:#7A2441;
-  --gold:#B8902A;--gold-light:#D4AF5A;
+  --burg:#5C1830;--gold:#B8902A;
   --cream:#F5EFE6;--cream-dark:#EDE0CF;
   --bg:#FAFAF7;--white:#FFFFFF;
   --text:#1A0810;--gray:#8C7B72;--gray-light:#C5B8B0;
   --green:#2D6A4F;--green-bg:#E8F5EE;
-  --border:#EDE0CF;
-  --radius:10px;--radius-sm:7px;
+  --red:#C0392B;--red-bg:#FEF0EE;--red-border:#F5C6C0;
+  --border:#EDE0CF;--radius:10px;--radius-sm:7px;
 }
 html,body{height:100%;background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--text);overflow-x:hidden}
 #app{max-width:440px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;background:var(--white);box-shadow:0 0 40px rgba(92,24,48,0.08)}
-
-/* SETUP SCREEN */
-#setup{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;background:var(--white)}
-.setup-logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:13px;letter-spacing:0.18em;color:var(--burg);text-transform:uppercase;margin-bottom:8px;font-style:italic}
+/* SETUP */
+#setup{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center}
+.setup-logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:13px;letter-spacing:0.18em;color:var(--burg);font-style:italic;margin-bottom:8px}
 .setup-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:600;color:var(--burg);margin-bottom:6px}
 .setup-sub{font-size:13px;color:var(--gray);margin-bottom:32px;line-height:1.6}
-.setup-input{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:13px;color:var(--text);background:var(--bg);outline:none;margin-bottom:10px;word-break:break-all}
+.setup-input{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:13px;color:var(--text);background:var(--bg);outline:none;margin-bottom:10px}
 .setup-input:focus{border-color:var(--burg)}
-.btn-primary{width:100%;padding:13px;background:var(--burg);color:white;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:0.04em}
-.btn-primary:active{opacity:0.85}
+.btn-primary{width:100%;padding:13px;background:var(--burg);color:white;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer}
 .setup-hint{font-size:12px;color:var(--gray-light);margin-top:14px;line-height:1.7}
-
 /* HEADER */
 header{background:var(--burg);padding:env(safe-area-inset-top) 0 0;flex-shrink:0}
 .hdr-inner{padding:16px 18px 14px}
@@ -39,105 +35,101 @@ header{background:var(--burg);padding:env(safe-area-inset-top) 0 0;flex-shrink:0
 .hdr-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .hdr-title{font-size:19px;font-weight:500;color:white;line-height:1.2}
 .hdr-date{font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px}
-.hdr-back{background:none;border:none;color:rgba(255,255,255,0.6);font-size:12px;cursor:pointer;font-family:inherit;padding:0 0 2px;display:flex;align-items:center;gap:4px;white-space:nowrap;flex-shrink:0;padding-top:3px}
+.hdr-back{background:none;border:none;color:rgba(255,255,255,0.6);font-size:12px;cursor:pointer;font-family:inherit;padding-top:3px;display:flex;align-items:center;gap:4px}
 .hdr-refresh{background:none;border:none;cursor:pointer;padding:4px 0;color:rgba(255,255,255,0.6);font-size:18px;line-height:1}
 .hdr-refresh.spinning{animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* MAIN CONTENT */
+/* CONTENT */
 #content{flex:1;overflow-y:auto;padding:18px 16px 16px;-webkit-overflow-scrolling:touch}
-
-/* BOTTOM NAV */
+/* NAV */
 nav{display:flex;border-top:1px solid var(--border);background:var(--white);flex-shrink:0;padding-bottom:env(safe-area-inset-bottom)}
 .nav-btn{flex:1;padding:10px 0 9px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:inherit}
 .nav-icon{font-size:17px;line-height:1}
-.nav-label{font-size:11px;font-weight:400}
-.nav-btn.active .nav-icon,.nav-btn.active .nav-label{color:var(--burg)}
+.nav-label{font-size:11px}
+.nav-btn.active .nav-icon,.nav-btn.active .nav-label{color:var(--burg);font-weight:500}
 .nav-btn:not(.active) .nav-icon,.nav-btn:not(.active) .nav-label{color:var(--gray-light)}
-.nav-btn.active .nav-label{font-weight:500}
-
-/* LOADING */
+/* STATES */
 .loading-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 0;gap:14px;color:var(--gray)}
 .loader{width:28px;height:28px;border:2px solid var(--cream-dark);border-top-color:var(--burg);border-radius:50%;animation:spin 0.7s linear infinite}
 .loading-text{font-size:13px}
 .error-state{text-align:center;padding:40px 20px;color:var(--gray)}
 .error-state p{font-size:14px;margin-bottom:14px;line-height:1.6}
 .retry-btn{padding:9px 20px;border:1.5px solid var(--burg);background:none;border-radius:var(--radius-sm);color:var(--burg);font-family:inherit;font-size:13px;cursor:pointer;font-weight:500}
-
 /* DASHBOARD */
-.status-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.status-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
 .chip{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:500}
 .chip.done{background:var(--green-bg);color:var(--green)}
 .chip.todo{background:var(--cream);color:var(--gray)}
-
+.discard-banner{display:flex;align-items:center;gap:10px;background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--radius);padding:12px 14px;margin-bottom:16px}
+.discard-icon{font-size:20px;flex-shrink:0}
+.discard-title{font-size:13px;font-weight:500;color:var(--red)}
+.discard-sub{font-size:11px;color:#A0453B;margin-top:2px}
 .section-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-weight:600;color:var(--burg);margin-bottom:10px;letter-spacing:0.04em}
-.cake-table{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin-bottom:20px}
-.table-head{display:grid;grid-template-columns:1fr 72px 72px;background:var(--burg);padding:8px 14px}
-.th{font-size:11px;font-weight:500;color:rgba(255,255,255,0.85);letter-spacing:0.05em;text-align:center}
-.th:first-child{text-align:left}
-.table-row{display:grid;grid-template-columns:1fr 72px 72px;padding:11px 14px;align-items:center;border-top:1px solid var(--cream-dark)}
-.cake-name{font-size:13px;color:var(--text);line-height:1.3}
-.cake-unit{font-size:10px;color:var(--gray-light);margin-top:1px}
-.stock-cell{text-align:center}
-.stock-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;line-height:1.2}
-.stock-lbl{font-size:10px;color:var(--gray-light);margin-top:1px}
-.s-confirmed{color:var(--text)}
-.s-estimated{color:var(--gold)}
-.s-none{color:var(--cream-dark)}
-.legend{display:flex;gap:14px;justify-content:center;margin-top:4px;font-size:11px;color:var(--gray-light)}
+/* CAKE CARD */
+.cake-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.cake-card.has-discard{border-color:var(--red-border)}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg);border-bottom:1px solid var(--cream-dark)}
+.card-name{font-size:14px;font-weight:500}
+.cake-badge{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:500;flex-shrink:0}
+.badge-hol{background:#FBF4F6;color:#7A2441}
+.badge-jo{background:#F4F0FB;color:#534AB7}
+/* METRIC GRID */
+.metric-grid{display:grid;grid-template-columns:1fr 1fr 1fr}
+.metric-grid:last-child{border-top:1px solid var(--cream-dark)}
+.metric-grid:first-of-type{border-top:none}
+.metric-cell{padding:11px 0 10px;text-align:center;border-right:1px solid var(--cream-dark);border-top:1px solid var(--cream-dark)}
+.metric-cell:last-child{border-right:none}
+.metric-label{font-size:10px;color:var(--gray-light);margin-bottom:5px;letter-spacing:0.02em}
+.metric-val{font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:600;line-height:1.1}
+.metric-sub{font-size:10px;color:var(--gray-light);margin-top:2px}
+.v-confirmed{color:var(--text)}
+.v-estimated{color:var(--gold)}
+.v-none{color:var(--cream-dark)}
+.v-discard{color:var(--red)}
+.v-zero{color:var(--gray-light)}
+.legend{display:flex;gap:14px;justify-content:center;margin-top:8px;font-size:11px;color:var(--gray-light)}
 .legend span{display:flex;align-items:center;gap:4px}
 .legend .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-
-/* INPUT TAB */
+/* INPUT */
 .type-list{display:flex;flex-direction:column;gap:8px}
-.type-card{display:flex;align-items:center;gap:14px;padding:15px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:left;width:100%;font-family:inherit;transition:border-color 0.15s}
+.type-card{display:flex;align-items:center;gap:14px;padding:15px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:left;width:100%;font-family:inherit}
 .type-card.done{border-color:var(--green)}
 .type-card:active{background:var(--cream)}
 .type-icon{font-size:20px;width:28px;text-align:center;flex-shrink:0}
-.type-icon.done-icon{color:var(--green)}
-.type-icon.pending-icon{color:var(--burg)}
+.done-icon{color:var(--green)}
+.pending-icon{color:var(--burg)}
 .type-info{flex:1}
-.type-label{font-size:14px;font-weight:500;color:var(--text)}
+.type-label{font-size:14px;font-weight:500}
 .type-sub{font-size:12px;color:var(--gray);margin-top:2px}
 .type-status{font-size:12px;font-weight:500;color:var(--green)}
 .type-arrow{color:var(--gray-light);font-size:20px}
-
-.qty-form{display:flex;flex-direction:column;gap:0;margin-bottom:14px;background:var(--white);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
+.qty-form{margin-bottom:14px;background:var(--white);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
 .qty-row{display:flex;align-items:center;padding:12px 14px;justify-content:space-between;border-top:1px solid var(--cream-dark)}
 .qty-row:first-child{border-top:none}
 .qty-name{font-size:13px;flex:1;padding-right:10px}
 .qty-type{font-size:10px;color:var(--gray-light);margin-top:1px}
 .qty-ctrl{display:flex;align-items:center;gap:8px}
-.qty-dec,.qty-inc{width:34px;height:34px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;line-height:1;font-family:inherit}
+.qty-dec,.qty-inc{width:34px;height:34px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;font-family:inherit}
 .qty-dec{background:var(--cream);color:var(--text)}
 .qty-inc{background:var(--burg);color:white}
-.qty-dec:active{background:var(--cream-dark)}
-.qty-inc:active{opacity:0.8}
-.qty-val{font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:600;min-width:40px;text-align:center;color:var(--text)}
-.save-btn{width:100%;padding:15px;background:var(--burg);color:white;border:none;border-radius:var(--radius);font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;letter-spacing:0.04em;transition:background 0.2s}
-.save-btn:disabled{opacity:0.5;cursor:default}
+.qty-val{font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:600;min-width:40px;text-align:center}
+.save-btn{width:100%;padding:15px;background:var(--burg);color:white;border:none;border-radius:var(--radius);font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;transition:background 0.2s}
+.save-btn:disabled{opacity:0.45;cursor:default}
 .save-btn.success{background:var(--green)}
-.save-btn:active:not(:disabled){opacity:0.85}
-
-/* MENU TAB */
+/* MENU */
 .add-form{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:16px;margin-bottom:20px}
 .form-label{font-size:11px;font-weight:500;color:var(--gray);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px}
 .text-input{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:14px;color:var(--text);background:var(--bg);outline:none;margin-bottom:10px}
 .text-input:focus{border-color:var(--burg)}
 .type-toggle{display:flex;gap:8px;margin-bottom:12px}
-.toggle-btn{flex:1;padding:9px;border-radius:var(--radius-sm);border:1.5px solid transparent;font-family:inherit;font-size:13px;cursor:pointer;transition:all 0.15s}
+.toggle-btn{flex:1;padding:9px;border-radius:var(--radius-sm);border:1.5px solid transparent;font-family:inherit;font-size:13px;cursor:pointer}
 .toggle-btn.selected{border-color:var(--burg);background:#FBF4F6;color:var(--burg);font-weight:500}
 .toggle-btn:not(.selected){border-color:var(--border);background:var(--white);color:var(--gray)}
-.add-btn{width:100%;padding:11px;background:var(--gold);color:white;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:0.04em}
-.add-btn:active{opacity:0.85}
-
+.add-btn{width:100%;padding:11px;background:var(--gold);color:white;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer}
 .menu-list{display:flex;flex-direction:column;gap:8px}
 .menu-item{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:12px 14px;display:flex;align-items:center;gap:10px}
 .menu-item.inactive{opacity:0.45}
-.cake-badge{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:500;flex-shrink:0;white-space:nowrap}
-.badge-hol{background:#FBF4F6;color:#7A2441}
-.badge-jo{background:#F4F0FB;color:#534AB7}
-.menu-name{flex:1;font-size:13px;color:var(--text);min-width:0}
+.menu-name{flex:1;font-size:13px;min-width:0}
 .edit-input{flex:1;padding:5px 9px;border:1.5px solid var(--burg);border-radius:6px;font-family:inherit;font-size:13px;outline:none;min-width:0}
 .icon-btn{background:none;border:none;cursor:pointer;padding:4px;font-size:15px;color:var(--gray-light);line-height:1;flex-shrink:0}
 .edit-save{background:none;border:none;cursor:pointer;font-size:12px;font-weight:500;color:var(--green);font-family:inherit;padding:2px 6px}
@@ -160,9 +152,8 @@ nav{display:flex;border-top:1px solid var(--border);background:var(--white);flex
     <div class="setup-sub">Google Apps Script URL을 입력하면<br>설정이 완료됩니다</div>
     <input id="script-url-input" class="setup-input" type="url" placeholder="https://script.google.com/macros/s/..." autocomplete="off" autocorrect="off" spellcheck="false">
     <button class="btn-primary" id="setup-save-btn">시작하기</button>
-    <p class="setup-hint">Apps Script 배포 > 웹 앱으로 배포 후<br>생성된 URL을 붙여넣으세요<br><br>설정은 이 기기에 저장됩니다</p>
+    <p class="setup-hint">Apps Script 배포 > 웹 앱으로 배포 후<br>생성된 URL을 붙여넣으세요</p>
   </div>
-
   <header id="header" style="display:none">
     <div class="hdr-inner">
       <div class="hdr-logo">La Terrasse de Paris</div>
@@ -172,417 +163,324 @@ nav{display:flex;border-top:1px solid var(--border);background:var(--white);flex
           <div class="hdr-title" id="hdr-title">재고 현황</div>
           <div class="hdr-date" id="hdr-date"></div>
         </div>
-        <button class="hdr-refresh" id="refresh-btn" title="새로고침">↻</button>
+        <button class="hdr-refresh" id="refresh-btn">↻</button>
       </div>
     </div>
   </header>
-
   <div id="content" style="display:none"></div>
-
   <nav id="nav" style="display:none">
-    <button class="nav-btn active" data-tab="dash">
-      <span class="nav-icon">◈</span>
-      <span class="nav-label">현황</span>
-    </button>
-    <button class="nav-btn" data-tab="input">
-      <span class="nav-icon">✦</span>
-      <span class="nav-label">입력</span>
-    </button>
-    <button class="nav-btn" data-tab="menu">
-      <span class="nav-icon">❈</span>
-      <span class="nav-label">메뉴</span>
-    </button>
+    <button class="nav-btn active" data-tab="dash"><span class="nav-icon">◈</span><span class="nav-label">현황</span></button>
+    <button class="nav-btn" data-tab="input"><span class="nav-icon">✦</span><span class="nav-label">입력</span></button>
+    <button class="nav-btn" data-tab="menu"><span class="nav-icon">❈</span><span class="nav-label">메뉴</span></button>
   </nav>
 </div>
-
 <script>
-/* ─── CONFIG ─────────────────────────────────── */
-const SCRIPT_URL_KEY = 'lt_script_url';
-const DEF_CAKES = [
+const SCRIPT_URL_KEY='lt_script_url';
+const DEF_CAKES=[
   {id:'1',name:'스트로베리 쇼트케이크',type:'홀',active:true},
   {id:'2',name:'말차 가나슈',type:'홀',active:true},
   {id:'3',name:'얼그레이 베리',type:'홀',active:true},
   {id:'4',name:'티라미수',type:'조각',active:true},
   {id:'5',name:'흑임자 크림치즈',type:'조각',active:true},
 ];
-const TYPES = [
-  {id:'production',  label:'아침 생산',  sub:'본점 생산 완료 후',   icon:'☀'},
-  {id:'transfer_out',label:'이송 출고',  sub:'본점 → 킨텍스 발송',  icon:'▶'},
-  {id:'transfer_in', label:'이송 수령',  sub:'킨텍스 수령 확인',    icon:'◆'},
-  {id:'closing_b',   label:'마감 재고',  sub:'본점 영업 마감',      icon:'◐'},
-  {id:'closing_k',   label:'마감 재고',  sub:'킨텍스 영업 마감',    icon:'◑'},
+const TYPES=[
+  {id:'production',  label:'아침 생산', sub:'본점 생산 완료 후',  icon:'☀'},
+  {id:'transfer_out',label:'이송 출고', sub:'본점 → 킨텍스 발송', icon:'▶'},
+  {id:'transfer_in', label:'이송 수령', sub:'킨텍스 수령 확인',   icon:'◆'},
+  {id:'closing_b',   label:'마감 재고', sub:'본점 영업 마감',     icon:'◐'},
+  {id:'closing_k',   label:'마감 재고', sub:'킨텍스 영업 마감',   icon:'◑'},
 ];
-
-/* ─── STATE ──────────────────────────────────── */
-const state = {
-  scriptUrl: localStorage.getItem(SCRIPT_URL_KEY) || '',
-  tab: 'dash',
-  cakes: [],
-  log: {},
-  loading: false,
-  error: null,
-  // input sub-state
-  selectedType: null,
-  inputVals: {},
-  saving: false,
-  saved: false,
-  // menu sub-state
-  editId: null,
-  editName: '',
-  newName: '',
-  newType: '홀',
+const state={
+  scriptUrl:localStorage.getItem(SCRIPT_URL_KEY)||'',
+  tab:'dash',cakes:[],
+  log:{},logY:{},logD:{},
+  loading:false,error:null,
+  selectedType:null,inputVals:{},saving:false,saved:false,
+  editId:null,editName:'',newName:'',newType:'홀',
 };
 
-/* ─── UTILS ──────────────────────────────────── */
-function today() {
-  const d = new Date(), off = d.getTimezoneOffset();
-  return new Date(d.getTime() - off * 60000).toISOString().split('T')[0];
+function getDateStr(offset=0){
+  const d=new Date(),off=d.getTimezoneOffset();
+  const loc=new Date(d.getTime()-off*60000);
+  loc.setDate(loc.getDate()+offset);
+  return loc.toISOString().split('T')[0];
 }
-function toKorDate(s) {
-  const w = ['일','월','화','수','목','금','토'];
-  const d = new Date(s + 'T00:00:00');
+function toKorDate(s){
+  const w=['일','월','화','수','목','금','토'],d=new Date(s+'T00:00:00');
   return `${d.getMonth()+1}월 ${d.getDate()}일 (${w[d.getDay()]})`;
 }
-function isDone(typeId) {
-  const d = state.log[typeId];
-  return d && Object.keys(d).length > 0;
-}
-function getStock(cakeId, store) {
-  const log = state.log;
-  if (store === 'b') {
-    if (log.closing_b?.[cakeId] !== undefined) return {v: log.closing_b[cakeId], s:'confirmed'};
-    if (log.production?.[cakeId] !== undefined) {
-      const out = log.transfer_out?.[cakeId] || 0;
-      return {v: log.production[cakeId] - out, s:'estimated'};
-    }
-    return {v: null, s:'none'};
-  } else {
-    if (log.closing_k?.[cakeId] !== undefined) return {v: log.closing_k[cakeId], s:'confirmed'};
-    if (log.transfer_in?.[cakeId] !== undefined) return {v: log.transfer_in[cakeId], s:'estimated'};
-    return {v: null, s:'none'};
+function isDone(id){const d=state.log[id];return d&&Object.keys(d).length>0;}
+
+function getStock(cakeId,store,log){
+  if(store==='b'){
+    if(log.closing_b?.[cakeId]!==undefined)return{v:log.closing_b[cakeId],s:'confirmed'};
+    if(log.production?.[cakeId]!==undefined)return{v:log.production[cakeId]-(log.transfer_out?.[cakeId]||0),s:'estimated'};
+    return{v:null,s:'none'};
+  }else{
+    if(log.closing_k?.[cakeId]!==undefined)return{v:log.closing_k[cakeId],s:'confirmed'};
+    if(log.transfer_in?.[cakeId]!==undefined)return{v:log.transfer_in[cakeId],s:'estimated'};
+    return{v:null,s:'none'};
   }
 }
+function getMetrics(cake){
+  const id=cake.id;
+  const yB=state.logY.closing_b?.[id]??0, yK=state.logY.closing_k?.[id]??0;
+  const carryover=yB+yK;
+  const produced=state.log.production?.[id]??null;
+  const stB=getStock(id,'b',state.log), stK=getStock(id,'k',state.log);
+  let total=null;
+  if(stB.v!==null&&stK.v!==null)total=stB.v+stK.v;
+  else if(stB.v!==null)total=stB.v;
+  else if(stK.v!==null)total=stK.v;
+  const dB=state.logD.closing_b?.[id]??0, dK=state.logD.closing_k?.[id]??0;
+  const dayBefore=dB+dK;
+  const discard=(dayBefore>0&&carryover>0)?Math.min(dayBefore,carryover):0;
+  return{carryover,produced,stB,stK,total,discard};
+}
 
-/* ─── API ────────────────────────────────────── */
-async function apiGet(params) {
-  const url = state.scriptUrl + '?' + new URLSearchParams(params);
-  const res = await fetch(url, {redirect:'follow', cache:'no-cache'});
+async function apiGet(params){
+  const url=state.scriptUrl+'?'+new URLSearchParams(params);
+  const res=await fetch(url,{redirect:'follow',cache:'no-cache'});
   return res.json();
 }
-async function loadAll() {
-  if (!state.scriptUrl) return;
-  state.loading = true; state.error = null; render();
-  try {
-    const [cakes, log] = await Promise.all([
+async function loadAll(){
+  if(!state.scriptUrl)return;
+  state.loading=true;state.error=null;render();
+  try{
+    const[cakes,log,logY,logD]=await Promise.all([
       apiGet({action:'getCakes'}),
-      apiGet({action:'getLog', date: today()}),
+      apiGet({action:'getLog',date:getDateStr(0)}),
+      apiGet({action:'getLog',date:getDateStr(-1)}),
+      apiGet({action:'getLog',date:getDateStr(-2)}),
     ]);
-    const loadedCakes = Array.isArray(cakes) && cakes.length > 0 ? cakes : null;
-    state.cakes = loadedCakes || loadLocalCakes();
-    state.log = (log && typeof log === 'object' && !log.error) ? log : {};
-  } catch(e) {
-    state.cakes = loadLocalCakes();
-    state.error = 'Google Sheets 연결에 실패했습니다.\nURL을 확인하거나 잠시 후 다시 시도하세요.';
+    state.cakes=(Array.isArray(cakes)&&cakes.length)?cakes:loadLocalCakes();
+    state.log=(log&&!log.error)?log:{};
+    state.logY=(logY&&!logY.error)?logY:{};
+    state.logD=(logD&&!logD.error)?logD:{};
+  }catch(e){
+    state.cakes=loadLocalCakes();
+    state.error='Google Sheets 연결에 실패했습니다.\n잠시 후 다시 시도하세요.';
   }
-  state.loading = false; render();
+  state.loading=false;render();
 }
-function loadLocalCakes() {
-  try { const s = localStorage.getItem('lt_cakes_local'); if (s) return JSON.parse(s); } catch(e) {}
+function loadLocalCakes(){
+  try{const s=localStorage.getItem('lt_cakes_local');if(s)return JSON.parse(s);}catch(e){}
   return JSON.parse(JSON.stringify(DEF_CAKES));
 }
-function saveLocalCakes(cakes) {
-  try { localStorage.setItem('lt_cakes_local', JSON.stringify(cakes)); } catch(e) {}
-}
-async function saveCakes(cakes) {
+function saveLocalCakes(c){try{localStorage.setItem('lt_cakes_local',JSON.stringify(c));}catch(e){}}
+async function saveCakes(cakes){
   saveLocalCakes(cakes);
-  try { await apiGet({action:'saveCakes', data: JSON.stringify(cakes)}); } catch(e) { console.warn('Sheets sync failed', e); }
+  try{await apiGet({action:'saveCakes',data:JSON.stringify(cakes)});}catch(e){}
 }
-async function saveLog(typeId, vals) {
-  try { await apiGet({action:'saveLog', date: today(), type: typeId, data: JSON.stringify(vals)}); } catch(e) { console.warn('Sheets log sync failed', e); }
+async function saveLog(typeId,vals){
+  try{await apiGet({action:'saveLog',date:getDateStr(0),type:typeId,data:JSON.stringify(vals)});}catch(e){}
 }
 
-/* ─── RENDER ─────────────────────────────────── */
-function el(tag, attrs, ...children) {
-  const e = document.createElement(tag);
-  if (attrs) Object.entries(attrs).forEach(([k,v]) => {
-    if (k === 'className') e.className = v;
-    else if (k === 'style') Object.assign(e.style, v);
-    else if (k.startsWith('on')) e.addEventListener(k.slice(2).toLowerCase(), v);
-    else if (typeof v === 'boolean') { if (v) e.setAttribute(k, ''); else e.removeAttribute(k); }
-    else e.setAttribute(k, v);
+function el(tag,attrs,...children){
+  const e=document.createElement(tag);
+  if(attrs)Object.entries(attrs).forEach(([k,v])=>{
+    if(k==='className')e.className=v;
+    else if(k==='style')Object.assign(e.style,v);
+    else if(k.startsWith('on'))e.addEventListener(k.slice(2).toLowerCase(),v);
+    else if(typeof v==='boolean'){if(v)e.setAttribute(k,'');else e.removeAttribute(k);}
+    else e.setAttribute(k,v);
   });
-  children.flat().forEach(c => {
-    if (c == null) return;
-    e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+  children.flat().forEach(c=>{
+    if(c==null)return;
+    e.appendChild(typeof c==='string'?document.createTextNode(c):c);
   });
   return e;
 }
-function html(str) {
-  const d = document.createElement('div');
-  d.innerHTML = str;
-  return d;
-}
 
-function render() {
-  const hasUrl = !!state.scriptUrl;
-  document.getElementById('setup').style.display = hasUrl ? 'none' : 'flex';
-  document.getElementById('header').style.display = hasUrl ? '' : 'none';
-  document.getElementById('content').style.display = hasUrl ? '' : 'none';
-  document.getElementById('nav').style.display = hasUrl ? '' : 'none';
+function render(){
+  const has=!!state.scriptUrl;
+  document.getElementById('setup').style.display=has?'none':'flex';
+  document.getElementById('header').style.display=has?'':'none';
+  document.getElementById('content').style.display=has?'':'none';
+  document.getElementById('nav').style.display=has?'':'none';
+  if(!has)return;
 
-  if (!hasUrl) return;
-
-  // Header
-  const titles = {dash:'재고 현황', input:'입력', menu:'케이크 메뉴'};
-  document.getElementById('hdr-date').textContent = toKorDate(today());
-  const backBtn = document.getElementById('back-btn');
-
-  if (state.tab === 'input' && state.selectedType) {
-    document.getElementById('hdr-title').textContent =
-      `${state.selectedType.label} · ${state.selectedType.sub.split(' ')[0]}`;
-    backBtn.style.display = '';
-  } else {
-    document.getElementById('hdr-title').textContent = titles[state.tab];
-    backBtn.style.display = 'none';
+  document.getElementById('hdr-date').textContent=toKorDate(getDateStr(0));
+  const back=document.getElementById('back-btn');
+  if(state.tab==='input'&&state.selectedType){
+    document.getElementById('hdr-title').textContent=state.selectedType.label+' · '+state.selectedType.sub.split(' ')[0];
+    back.style.display='';
+  }else{
+    document.getElementById('hdr-title').textContent={dash:'재고 현황',input:'입력',menu:'케이크 메뉴'}[state.tab];
+    back.style.display='none';
   }
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===state.tab));
 
-  // Nav active state
-  document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.tab === state.tab);
-  });
-
-  // Content
-  const content = document.getElementById('content');
-  content.innerHTML = '';
-  if (state.loading) {
-    content.appendChild(renderLoading());
-  } else if (state.error) {
-    content.appendChild(renderError());
-  } else {
-    const views = {dash: renderDash, input: renderInput, menu: renderMenu};
-    content.appendChild(views[state.tab]());
+  const content=document.getElementById('content');
+  content.innerHTML='';
+  if(state.loading){content.appendChild(el('div',{className:'loading-state'},el('div',{className:'loader'}),el('div',{className:'loading-text'},'데이터를 불러오는 중...')));return;}
+  if(state.error){
+    const d=el('div',{className:'error-state'});
+    const p=el('p');p.textContent=state.error;d.appendChild(p);
+    d.appendChild(el('button',{className:'retry-btn',onClick:loadAll},'다시 시도'));
+    content.appendChild(d);return;
   }
+  content.appendChild({dash:renderDash,input:renderInput,menu:renderMenu}[state.tab]());
 }
 
-function renderLoading() {
-  return el('div',{className:'loading-state'},
-    el('div',{className:'loader'}),
-    el('div',{className:'loading-text'},'데이터를 불러오는 중...')
-  );
-}
-function renderError() {
-  const d = el('div',{className:'error-state'});
-  const p = el('p'); p.textContent = state.error; d.appendChild(p);
-  const btn = el('button',{className:'retry-btn', onClick: loadAll},'다시 시도');
-  d.appendChild(btn);
-  return d;
-}
+function renderDash(){
+  const frag=document.createDocumentFragment();
+  const active=state.cakes.filter(c=>c.active);
 
-function renderDash() {
-  const frag = document.createDocumentFragment();
-
-  // Status chips
-  const chips = el('div',{className:'status-chips'});
-  TYPES.forEach(t => {
-    const done = isDone(t.id);
-    chips.appendChild(el('span',{className:'chip ' + (done?'done':'todo')},
-      done ? '✓ ' + t.label : t.label
-    ));
-  });
+  const chips=el('div',{className:'status-chips'});
+  TYPES.forEach(t=>chips.appendChild(el('span',{className:'chip '+(isDone(t.id)?'done':'todo')},(isDone(t.id)?'✓ ':'')+t.label)));
   frag.appendChild(chips);
 
-  const active = state.cakes.filter(c => c.active);
-  const hol = active.filter(c => c.type === '홀');
-  const jo  = active.filter(c => c.type === '조각');
+  if(!active.length){frag.appendChild(el('div',{className:'empty-state'},'케이크 메뉴를 먼저 등록해주세요'));return frag;}
 
-  if (!active.length) {
-    frag.appendChild(el('div',{className:'empty-state'},'케이크 메뉴를 먼저 등록해주세요'));
-    return frag;
+  const totalDiscard=active.reduce((s,c)=>s+getMetrics(c).discard,0);
+  if(totalDiscard>0){
+    const ban=el('div',{className:'discard-banner'});
+    ban.appendChild(el('div',{className:'discard-icon'},'⚠'));
+    const txt=el('div');
+    txt.appendChild(el('div',{className:'discard-title'},`오늘 폐기 대상 총 ${totalDiscard}개`));
+    txt.appendChild(el('div',{className:'discard-sub'},'생산 3일차 재고 · 판매 불가'));
+    ban.appendChild(txt);frag.appendChild(ban);
   }
 
-  function makeTable(list) {
-    const wrap = el('div',{className:'cake-table'});
-    const head = el('div',{className:'table-head'});
-    ['케이크','본점','킨텍스'].forEach((t,i) => {
-      head.appendChild(el('div',{className:'th', style: i===0?{textAlign:'left'}:{}}),t);
-      head.lastChild.textContent = t;
+  function makeSection(list,label){
+    if(!list.length)return;
+    frag.appendChild(el('div',{className:'section-title'},label));
+    list.forEach(cake=>{
+      const m=getMetrics(cake);
+      const card=el('div',{className:'cake-card'+(m.discard>0?' has-discard':'')});
+      const head=el('div',{className:'card-head'});
+      head.appendChild(el('div',{className:'card-name'},cake.name));
+      head.appendChild(el('span',{className:'cake-badge '+(cake.type==='홀'?'badge-hol':'badge-jo')},cake.type));
+      card.appendChild(head);
+
+      function cell(label,val,cls,sub){
+        const c=el('div',{className:'metric-cell'});
+        c.appendChild(el('div',{className:'metric-label'},label));
+        const v=el('div',{className:'metric-val '+cls});
+        v.textContent=val!==null?String(val):'—';
+        c.appendChild(v);
+        c.appendChild(el('div',{className:'metric-sub'},sub||''));
+        return c;
+      }
+      function stCls(st){
+        if(st.s==='confirmed')return st.v>0?'v-confirmed':'v-zero';
+        if(st.s==='estimated')return 'v-estimated';
+        return 'v-none';
+      }
+      function stSub(st){
+        if(st.v===null)return '—';
+        return st.s==='confirmed'?'마감':'추정';
+      }
+
+      const r1=el('div',{className:'metric-grid'});
+      r1.appendChild(cell('전날 이월',m.carryover,m.carryover>0?'v-confirmed':'v-zero','전체'));
+      r1.appendChild(cell('당일 생산',m.produced!==null?m.produced:'—',m.produced!==null?(m.produced>0?'v-confirmed':'v-zero'):'v-none',m.produced!==null?'생산':'미입력'));
+      r1.appendChild(cell('총 재고',m.total!==null?m.total:'—',m.total!==null?(m.total>0?'v-confirmed':'v-zero'):'v-none',m.total!==null?'본점+킨텍스':'—'));
+      card.appendChild(r1);
+
+      const r2=el('div',{className:'metric-grid'});
+      r2.appendChild(cell('본점',m.stB.v,stCls(m.stB),stSub(m.stB)));
+      r2.appendChild(cell('킨텍스',m.stK.v,stCls(m.stK),stSub(m.stK)));
+      r2.appendChild(cell('폐기 예정',m.discard,m.discard>0?'v-discard':'v-zero',m.discard>0?'3일차 ⚠':'없음'));
+      card.appendChild(r2);
+
+      frag.appendChild(card);
     });
-    wrap.appendChild(head);
-    list.forEach(c => {
-      const row = el('div',{className:'table-row'});
-      const info = el('div');
-      info.appendChild(el('div',{className:'cake-name'},c.name));
-      info.appendChild(el('div',{className:'cake-unit'},c.type==='홀'?'홀케이크 · 1호':'조각 단위'));
-      row.appendChild(info);
-      ['b','k'].forEach(store => {
-        const st = getStock(c.id, store);
-        const cell = el('div',{className:'stock-cell'});
-        const num = el('div',{className:`stock-num s-${st.s}`});
-        num.textContent = st.v !== null ? st.v : '—';
-        const lbl = el('div',{className:'stock-lbl'});
-        lbl.textContent = st.s === 'confirmed' ? '마감' : st.s === 'estimated' ? '추정' : '';
-        cell.appendChild(num); cell.appendChild(lbl);
-        row.appendChild(cell);
-      });
-      wrap.appendChild(row);
-    });
-    return wrap;
   }
 
-  if (hol.length) {
-    frag.appendChild(el('div',{className:'section-title'},'홀케이크'));
-    frag.appendChild(makeTable(hol));
-  }
-  if (jo.length) {
-    frag.appendChild(el('div',{className:'section-title'},'조각케이크'));
-    frag.appendChild(makeTable(jo));
-  }
+  makeSection(active.filter(c=>c.type==='홀'),'홀케이크');
+  makeSection(active.filter(c=>c.type==='조각'),'조각케이크');
 
-  const legend = el('div',{className:'legend'});
-  [['var(--text)','마감 확정'],['var(--gold)','추정값'],['var(--cream-dark)','미입력']].forEach(([c,l]) => {
-    const s = el('span');
-    s.appendChild(el('span',{className:'dot', style:{background:c}}));
+  const leg=el('div',{className:'legend'});
+  [['var(--text)','마감 확정'],['var(--gold)','추정값'],['var(--red)','폐기 예정']].forEach(([c,l])=>{
+    const s=el('span');
+    s.appendChild(el('span',{className:'dot',style:{background:c}}));
     s.appendChild(document.createTextNode(l));
-    legend.appendChild(s);
+    leg.appendChild(s);
   });
-  frag.appendChild(legend);
+  frag.appendChild(leg);
   return frag;
 }
 
-function renderInput() {
-  const frag = document.createDocumentFragment();
-  if (!state.selectedType) {
-    const list = el('div',{className:'type-list'});
-    TYPES.forEach(t => {
-      const done = isDone(t.id);
-      const card = el('div',{className:'type-card ' + (done?'done':''), onClick:()=>{
-        state.selectedType = t;
-        state.inputVals = {...(state.log[t.id]||{})};
-        state.saved = false;
-        render();
+function renderInput(){
+  const frag=document.createDocumentFragment();
+  if(!state.selectedType){
+    const list=el('div',{className:'type-list'});
+    TYPES.forEach(t=>{
+      const done=isDone(t.id);
+      const card=el('button',{className:'type-card '+(done?'done':''),onClick:()=>{
+        state.selectedType=t;state.inputVals={...(state.log[t.id]||{})};state.saved=false;render();
       }});
-      const icon = el('div',{className:`type-icon ${done?'done-icon':'pending-icon'}`},t.icon);
-      const info = el('div',{className:'type-info'},
-        el('div',{className:'type-label'},t.label),
-        el('div',{className:'type-sub'},t.sub)
-      );
-      card.appendChild(icon); card.appendChild(info);
-      if (done) card.appendChild(el('div',{className:'type-status'},'완료'));
-      else card.appendChild(el('div',{className:'type-arrow'},'›'));
+      card.appendChild(el('div',{className:'type-icon '+(done?'done-icon':'pending-icon')},t.icon));
+      card.appendChild(el('div',{className:'type-info'},el('div',{className:'type-label'},t.label),el('div',{className:'type-sub'},t.sub)));
+      card.appendChild(done?el('div',{className:'type-status'},'완료'):el('div',{className:'type-arrow'},'›'));
       list.appendChild(card);
     });
     frag.appendChild(list);
-  } else {
-    const active = state.cakes.filter(c => c.active);
-    const form = el('div',{className:'qty-form'});
-    active.forEach((c,i) => {
-      const row = el('div',{className:'qty-row'});
-      const info = el('div');
+  }else{
+    const active=state.cakes.filter(c=>c.active);
+    const form=el('div',{className:'qty-form'});
+    active.forEach(c=>{
+      const row=el('div',{className:'qty-row'});
+      const info=el('div');
       info.appendChild(el('div',{className:'qty-name'},c.name));
       info.appendChild(el('div',{className:'qty-type'},c.type==='홀'?'홀케이크':'조각케이크'));
-      const ctrl = el('div',{className:'qty-ctrl'});
-      const dec = el('button',{className:'qty-dec', onClick:()=>{
-        state.inputVals[c.id] = Math.max(0,(state.inputVals[c.id]||0)-1);
-        render();
-      }},el('span',{},'−'));
-      const val = el('div',{className:'qty-val'},(state.inputVals[c.id]||0).toString());
-      const inc = el('button',{className:'qty-inc', onClick:()=>{
-        state.inputVals[c.id] = (state.inputVals[c.id]||0)+1;
-        render();
-      }},el('span',{},'＋'));
-      ctrl.appendChild(dec); ctrl.appendChild(val); ctrl.appendChild(inc);
-      row.appendChild(info); row.appendChild(ctrl);
-      form.appendChild(row);
+      const ctrl=el('div',{className:'qty-ctrl'});
+      ctrl.appendChild(el('button',{className:'qty-dec',onClick:()=>{state.inputVals[c.id]=Math.max(0,(state.inputVals[c.id]||0)-1);render();}},el('span',{},'−')));
+      ctrl.appendChild(el('div',{className:'qty-val'},String(state.inputVals[c.id]||0)));
+      ctrl.appendChild(el('button',{className:'qty-inc',onClick:()=>{state.inputVals[c.id]=(state.inputVals[c.id]||0)+1;render();}},el('span',{},'＋')));
+      row.appendChild(info);row.appendChild(ctrl);form.appendChild(row);
     });
     frag.appendChild(form);
-
-    const saveBtn = el('button',{
-      className:'save-btn' + (state.saved?' success':''),
-      disabled: state.saving,
-      onClick: async ()=>{
-        state.saving = true; render();
-        try {
-          await saveLog(state.selectedType.id, state.inputVals);
-          if (!state.log[state.selectedType.id]) state.log[state.selectedType.id] = {};
-          Object.assign(state.log[state.selectedType.id], state.inputVals);
-          state.saving = false; state.saved = true; render();
-          setTimeout(()=>{ state.saved=false; state.selectedType=null; render(); }, 1600);
-        } catch(e) {
-          state.saving = false; alert('저장에 실패했습니다. 다시 시도하세요.'); render();
-        }
+    frag.appendChild(el('button',{
+      className:'save-btn'+(state.saved?' success':''),
+      disabled:state.saving,
+      onClick:async()=>{
+        state.saving=true;render();
+        try{
+          await saveLog(state.selectedType.id,state.inputVals);
+          if(!state.log[state.selectedType.id])state.log[state.selectedType.id]={};
+          Object.assign(state.log[state.selectedType.id],state.inputVals);
+          state.saving=false;state.saved=true;render();
+          setTimeout(()=>{state.saved=false;state.selectedType=null;render();},1600);
+        }catch(e){state.saving=false;alert('저장 실패. 다시 시도하세요.');render();}
       }
-    }, state.saved ? '✓  저장 완료' : state.saving ? '저장 중...' : '저장하기');
-    frag.appendChild(saveBtn);
+    },state.saved?'✓  저장 완료':state.saving?'저장 중...':'저장하기'));
   }
   return frag;
 }
 
-function renderMenu() {
-  const frag = document.createDocumentFragment();
-
-  // Add form
-  const addForm = el('div',{className:'add-form'});
-  addForm.appendChild(el('div',{className:'form-label'},'케이크 추가'));
-
-  const input = el('input',{
-    className:'text-input', type:'text', placeholder:'케이크 이름',
-    value: state.newName,
-    onInput: e => { state.newName = e.target.value; },
-    onKeydown: e => { if(e.key==='Enter') doAdd(); }
-  });
-  addForm.appendChild(input);
-
-  const toggle = el('div',{className:'type-toggle'});
-  ['홀','조각'].forEach(t => {
-    const btn = el('button',{
-      className:'toggle-btn' + (state.newType===t?' selected':''),
-      onClick:()=>{ state.newType=t; render(); }
-    }, t==='홀'?'홀케이크':'조각케이크');
-    toggle.appendChild(btn);
-  });
-  addForm.appendChild(toggle);
-
-  const addBtn = el('button',{className:'add-btn', onClick: doAdd}, '+ 추가');
-  addForm.appendChild(addBtn);
-  frag.appendChild(addForm);
-
-  // List
+function renderMenu(){
+  const frag=document.createDocumentFragment();
+  const af=el('div',{className:'add-form'});
+  af.appendChild(el('div',{className:'form-label'},'케이크 추가'));
+  const inp=el('input',{className:'text-input',type:'text',placeholder:'케이크 이름',value:state.newName,
+    onInput:e=>{state.newName=e.target.value;},onKeydown:e=>{if(e.key==='Enter')doAdd();}});
+  af.appendChild(inp);
+  const tog=el('div',{className:'type-toggle'});
+  ['홀','조각'].forEach(t=>tog.appendChild(el('button',{className:'toggle-btn'+(state.newType===t?' selected':''),onClick:()=>{state.newType=t;render();}},t==='홀'?'홀케이크':'조각케이크')));
+  af.appendChild(tog);
+  af.appendChild(el('button',{className:'add-btn',onClick:doAdd},'+ 추가'));
+  frag.appendChild(af);
   frag.appendChild(el('div',{className:'section-title'},'케이크 목록'));
-
-  if (!state.cakes.length) {
-    frag.appendChild(el('div',{className:'empty-state'},'등록된 케이크가 없습니다'));
-    return frag;
-  }
-
-  const list = el('div',{className:'menu-list'});
-  state.cakes.forEach(c => {
-    const item = el('div',{className:'menu-item' + (c.active?'':' inactive')});
-
-    item.appendChild(el('span',{className:`cake-badge ${c.type==='홀'?'badge-hol':'badge-jo'}`}, c.type));
-
-    if (state.editId === c.id) {
-      const inp = el('input',{
-        className:'edit-input', type:'text',
-        value: state.editName, autofocus:true,
-        onInput: e => { state.editName = e.target.value; },
-        onKeydown: e => {
-          if(e.key==='Enter') doEditSave(c.id);
-          if(e.key==='Escape'){ state.editId=null; render(); }
-        }
-      });
-      item.appendChild(inp);
-      item.appendChild(el('button',{className:'edit-save', onClick:()=>doEditSave(c.id)},'저장'));
-      item.appendChild(el('button',{className:'edit-cancel', onClick:()=>{state.editId=null;render()}},'취소'));
-    } else {
+  if(!state.cakes.length){frag.appendChild(el('div',{className:'empty-state'},'등록된 케이크가 없습니다'));return frag;}
+  const list=el('div',{className:'menu-list'});
+  state.cakes.forEach(c=>{
+    const item=el('div',{className:'menu-item'+(c.active?'':' inactive')});
+    item.appendChild(el('span',{className:'cake-badge '+(c.type==='홀'?'badge-hol':'badge-jo')},c.type));
+    if(state.editId===c.id){
+      const ei=el('input',{className:'edit-input',type:'text',value:state.editName,
+        onInput:e=>{state.editName=e.target.value;},
+        onKeydown:e=>{if(e.key==='Enter')doEditSave(c.id);if(e.key==='Escape'){state.editId=null;render();}}});
+      item.appendChild(ei);
+      item.appendChild(el('button',{className:'edit-save',onClick:()=>doEditSave(c.id)},'저장'));
+      item.appendChild(el('button',{className:'edit-cancel',onClick:()=>{state.editId=null;render();}},'취소'));
+    }else{
       item.appendChild(el('div',{className:'menu-name'},c.name));
-      item.appendChild(el('button',{className:'icon-btn', onClick:()=>{
-        state.editId=c.id; state.editName=c.name; render();
-      }},'✎'));
-      item.appendChild(el('button',{className:'icon-btn del-btn', onClick:()=>doDelete(c.id)},'✕'));
-      const sw = el('div',{
-        className:`toggle-switch ${c.active?'on':'off'}`,
-        onClick:()=>doToggle(c.id)
-      });
+      item.appendChild(el('button',{className:'icon-btn',onClick:()=>{state.editId=c.id;state.editName=c.name;render();}},'✎'));
+      item.appendChild(el('button',{className:'icon-btn del-btn',onClick:()=>doDelete(c.id)},'✕'));
+      const sw=el('div',{className:'toggle-switch '+(c.active?'on':'off'),onClick:()=>doToggle(c.id)});
       sw.appendChild(el('div',{className:'toggle-knob'}));
       item.appendChild(sw);
     }
@@ -592,75 +490,44 @@ function renderMenu() {
   return frag;
 }
 
-/* ─── ACTIONS ────────────────────────────────── */
-async function doAdd() {
-  if (!state.newName.trim()) return;
-  const newCake = {id: Date.now().toString(), name: state.newName.trim(), type: state.newType, active: true};
-  state.cakes = [...state.cakes, newCake];
-  state.newName = '';
-  render();
-  try { await saveCakes(state.cakes); } catch(e) { alert('저장 실패'); }
+async function doAdd(){
+  if(!state.newName.trim())return;
+  state.cakes=[...state.cakes,{id:Date.now().toString(),name:state.newName.trim(),type:state.newType,active:true}];
+  state.newName='';render();
+  try{await saveCakes(state.cakes);}catch(e){}
 }
-async function doDelete(id) {
-  if (!confirm('삭제하시겠습니까?')) return;
-  state.cakes = state.cakes.filter(c => c.id !== id);
-  render();
-  try { await saveCakes(state.cakes); } catch(e) { alert('저장 실패'); }
+async function doDelete(id){
+  if(!confirm('삭제하시겠습니까?'))return;
+  state.cakes=state.cakes.filter(c=>c.id!==id);render();
+  try{await saveCakes(state.cakes);}catch(e){}
 }
-async function doToggle(id) {
-  state.cakes = state.cakes.map(c => c.id===id ? {...c,active:!c.active} : c);
-  render();
-  try { await saveCakes(state.cakes); } catch(e) { alert('저장 실패'); }
+async function doToggle(id){
+  state.cakes=state.cakes.map(c=>c.id===id?{...c,active:!c.active}:c);render();
+  try{await saveCakes(state.cakes);}catch(e){}
 }
-async function doEditSave(id) {
-  if (!state.editName.trim()) return;
-  state.cakes = state.cakes.map(c => c.id===id ? {...c,name:state.editName.trim()} : c);
-  state.editId = null;
-  render();
-  try { await saveCakes(state.cakes); } catch(e) { alert('저장 실패'); }
+async function doEditSave(id){
+  if(!state.editName.trim())return;
+  state.cakes=state.cakes.map(c=>c.id===id?{...c,name:state.editName.trim()}:c);
+  state.editId=null;render();
+  try{await saveCakes(state.cakes);}catch(e){}
 }
 
-/* ─── EVENTS ─────────────────────────────────── */
-document.getElementById('setup-save-btn').addEventListener('click', () => {
-  const val = document.getElementById('script-url-input').value.trim();
-  if (!val.startsWith('https://script.google.com')) {
-    alert('올바른 Apps Script URL을 입력해주세요');
-    return;
-  }
-  state.scriptUrl = val;
-  localStorage.setItem(SCRIPT_URL_KEY, val);
-  render();
-  loadAll();
+document.getElementById('setup-save-btn').addEventListener('click',()=>{
+  const val=document.getElementById('script-url-input').value.trim();
+  if(!val.startsWith('https://script.google.com')){alert('올바른 Apps Script URL을 입력해주세요');return;}
+  state.scriptUrl=val;localStorage.setItem(SCRIPT_URL_KEY,val);render();loadAll();
+});
+document.getElementById('back-btn').addEventListener('click',()=>{state.selectedType=null;render();});
+document.getElementById('refresh-btn').addEventListener('click',async()=>{
+  const btn=document.getElementById('refresh-btn');
+  btn.classList.add('spinning');await loadAll();btn.classList.remove('spinning');
+});
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{state.tab=btn.dataset.tab;state.selectedType=null;state.saved=false;render();});
 });
 
-document.getElementById('back-btn').addEventListener('click', () => {
-  state.selectedType = null;
-  render();
-});
-
-document.getElementById('refresh-btn').addEventListener('click', async () => {
-  const btn = document.getElementById('refresh-btn');
-  btn.classList.add('spinning');
-  await loadAll();
-  btn.classList.remove('spinning');
-});
-
-document.querySelectorAll('.nav-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    state.tab = btn.dataset.tab;
-    state.selectedType = null;
-    state.saved = false;
-    render();
-  });
-});
-
-/* ─── INIT ───────────────────────────────────── */
 render();
-if (state.scriptUrl) loadAll();
-else {
-  const inp = document.getElementById('script-url-input');
-  if (inp) inp.value = state.scriptUrl;
-}
+if(state.scriptUrl)loadAll();
 </script>
 </body>
 </html>
