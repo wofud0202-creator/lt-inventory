@@ -191,7 +191,7 @@ const TYPES=[
   {id:'closing_k',   label:'마감 재고', sub:'킨텍스 영업 마감',   icon:'◑'},
 ];
 const state={
-  scriptUrl:localStorage.getItem(SCRIPT_URL_KEY)||'',
+  scriptUrl:'https://script.google.com/macros/s/AKfycbzqhqXxVmoMcoMaJCAKgqDFDGgjxQcunnRTAkxMvSxqnxYFEfINrsRaMp0Vl0bpOn_xrg/exec',
   tab:'dash',cakes:[],
   log:{},logY:{},logD:{},
   loading:false,error:null,
@@ -294,12 +294,11 @@ function el(tag,attrs,...children){
 
 function render(){
   const has=!!state.scriptUrl;
-  document.getElementById('setup').style.display=has?'none':'flex';
-  document.getElementById('header').style.display=has?'':'none';
-  document.getElementById('content').style.display=has?'':'none';
-  document.getElementById('nav').style.display=has?'':'none';
-  if(!has)return;
-
+  document.getElementById('setup').style.display='none';
+  document.getElementById('header').style.display='';
+  document.getElementById('content').style.display='';
+  document.getElementById('nav').style.display='';
+  
   document.getElementById('hdr-date').textContent=toKorDate(getDateStr(0));
   const back=document.getElementById('back-btn');
   if(state.tab==='input'&&state.selectedType){
