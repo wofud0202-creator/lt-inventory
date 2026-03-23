@@ -18,84 +18,101 @@
   --border:#EDE0CF;--radius:10px;--radius-sm:7px;
 }
 html,body{height:100%;background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--text);overflow-x:hidden}
-#app{max-width:440px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;background:var(--white);box-shadow:0 0 40px rgba(92,24,48,0.08)}
-/* SETUP */
-#setup{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center}
-.setup-logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:13px;letter-spacing:0.18em;color:var(--burg);font-style:italic;margin-bottom:8px}
-.setup-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:600;color:var(--burg);margin-bottom:6px}
-.setup-sub{font-size:13px;color:var(--gray);margin-bottom:32px;line-height:1.6}
-.setup-input{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:13px;color:var(--text);background:var(--bg);outline:none;margin-bottom:10px}
-.setup-input:focus{border-color:var(--burg)}
-.btn-primary{width:100%;padding:13px;background:var(--burg);color:white;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer}
-.setup-hint{font-size:12px;color:var(--gray-light);margin-top:14px;line-height:1.7}
+#app{max-width:440px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;background:var(--white);box-shadow:0 0 40px rgba(92,24,48,0.08)}
+
 /* HEADER */
 header{background:var(--burg);padding:env(safe-area-inset-top) 0 0;flex-shrink:0}
-.hdr-inner{padding:16px 18px 14px}
-.hdr-logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:11px;letter-spacing:0.15em;color:rgba(255,255,255,0.55);font-style:italic;margin-bottom:3px}
-.hdr-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
-.hdr-title{font-size:19px;font-weight:500;color:white;line-height:1.2}
-.hdr-date{font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px}
-.hdr-back{background:none;border:none;color:rgba(255,255,255,0.6);font-size:12px;cursor:pointer;font-family:inherit;padding-top:3px;display:flex;align-items:center;gap:4px}
-.hdr-refresh{background:none;border:none;cursor:pointer;padding:4px 0;color:rgba(255,255,255,0.6);font-size:18px;line-height:1}
+.hdr-inner{padding:14px 18px 0}
+.hdr-logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:11px;letter-spacing:0.15em;color:rgba(255,255,255,0.55);font-style:italic;margin-bottom:2px}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.hdr-left{display:flex;align-items:center;gap:8px}
+.hdr-back{background:none;border:none;color:rgba(255,255,255,0.65);font-size:13px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:3px;padding:0}
+.hdr-title{font-size:18px;font-weight:500;color:white;line-height:1.2}
+.hdr-date{font-size:11px;color:rgba(255,255,255,0.5)}
+.hdr-refresh{background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.6);font-size:18px;line-height:1;padding:4px}
 .hdr-refresh.spinning{animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* TOP NAV — 헤더 하단에 고정 */
+.top-nav{display:flex;border-bottom:none;background:transparent;flex-shrink:0}
+.top-nav-btn{flex:1;padding:9px 0 0;background:none;border:none;cursor:pointer;font-family:inherit;font-size:13px;color:rgba(255,255,255,0.55);position:relative;transition:color 0.15s}
+.top-nav-btn.active{color:white;font-weight:500}
+.top-nav-btn::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;background:transparent;border-radius:2px 2px 0 0;transition:background 0.15s}
+.top-nav-btn.active::after{background:var(--gold)}
+.top-nav-line{height:10px;background:var(--burg)}
+
 /* CONTENT */
-#content{flex:1;overflow-y:auto;padding:18px 16px 16px;-webkit-overflow-scrolling:touch}
-/* NAV */
-nav{display:flex;border-top:1px solid var(--border);background:var(--white);flex-shrink:0;padding-bottom:env(safe-area-inset-bottom)}
-.nav-btn{flex:1;padding:10px 0 9px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:inherit}
-.nav-icon{font-size:17px;line-height:1}
-.nav-label{font-size:11px}
-.nav-btn.active .nav-icon,.nav-btn.active .nav-label{color:var(--burg);font-weight:500}
-.nav-btn:not(.active) .nav-icon,.nav-btn:not(.active) .nav-label{color:var(--gray-light)}
+#content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 20px}
+
 /* STATES */
 .loading-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 0;gap:14px;color:var(--gray)}
 .loader{width:28px;height:28px;border:2px solid var(--cream-dark);border-top-color:var(--burg);border-radius:50%;animation:spin 0.7s linear infinite}
 .loading-text{font-size:13px}
 .error-state{text-align:center;padding:40px 20px;color:var(--gray)}
-.error-state p{font-size:14px;margin-bottom:14px;line-height:1.6}
+.error-state p{font-size:14px;margin-bottom:14px;line-height:1.6;white-space:pre-line}
 .retry-btn{padding:9px 20px;border:1.5px solid var(--burg);background:none;border-radius:var(--radius-sm);color:var(--burg);font-family:inherit;font-size:13px;cursor:pointer;font-weight:500}
-/* DASHBOARD */
-.status-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.chip{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:500}
+
+/* ── SUMMARY TABLE (요약표) ───────────────────── */
+.summary-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden}
+.summary-head{display:grid;background:var(--burg);padding:8px 12px}
+.summary-head-row{display:grid;grid-template-columns:1fr 52px 52px 52px 60px;align-items:center}
+.sth{font-size:10px;font-weight:500;color:rgba(255,255,255,0.75);text-align:center;letter-spacing:0.04em}
+.sth:first-child{text-align:left;color:rgba(255,255,255,0.9)}
+.summary-row{display:grid;grid-template-columns:1fr 52px 52px 52px 60px;padding:9px 12px;border-top:1px solid var(--cream-dark);align-items:center}
+.summary-row.discard-row{background:var(--red-bg)}
+.s-name{font-size:12px;color:var(--text);line-height:1.3}
+.s-unit{font-size:10px;color:var(--gray-light);margin-top:1px}
+.s-val{font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;font-weight:600;text-align:center;line-height:1}
+.s-sub{font-size:9px;color:var(--gray-light);text-align:center;margin-top:1px}
+.sv-ok{color:var(--text)}
+.sv-est{color:var(--gold)}
+.sv-none{color:var(--gray-light)}
+.sv-discard{color:var(--red)}
+.sv-zero{color:var(--gray-light)}
+
+/* ── STATUS CHIPS ────────────────────────────── */
+.status-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500}
 .chip.done{background:var(--green-bg);color:var(--green)}
 .chip.todo{background:var(--cream);color:var(--gray)}
-.discard-banner{display:flex;align-items:center;gap:10px;background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--radius);padding:12px 14px;margin-bottom:16px}
-.discard-icon{font-size:20px;flex-shrink:0}
+
+/* ── DISCARD BANNER ──────────────────────────── */
+.discard-banner{display:flex;align-items:center;gap:10px;background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--radius);padding:11px 14px;margin-bottom:14px}
+.discard-icon{font-size:18px;flex-shrink:0}
 .discard-title{font-size:13px;font-weight:500;color:var(--red)}
 .discard-sub{font-size:11px;color:#A0453B;margin-top:2px}
-.section-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-weight:600;color:var(--burg);margin-bottom:10px;letter-spacing:0.04em}
-/* CAKE CARD */
-.cake-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+
+/* ── CAKE CARDS ──────────────────────────────── */
+.section-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;font-weight:600;color:var(--burg);margin:16px 0 10px;letter-spacing:0.04em}
+.section-title:first-of-type{margin-top:0}
+.cake-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
 .cake-card.has-discard{border-color:var(--red-border)}
-.card-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg);border-bottom:1px solid var(--cream-dark)}
-.card-name{font-size:14px;font-weight:500}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg);border-bottom:1px solid var(--cream-dark)}
+.card-name{font-size:13px;font-weight:500}
 .cake-badge{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:500;flex-shrink:0}
 .badge-hol{background:#FBF4F6;color:#7A2441}
 .badge-jo{background:#F4F0FB;color:#534AB7}
-/* METRIC GRID */
 .metric-grid{display:grid;grid-template-columns:1fr 1fr 1fr}
-.metric-grid:last-child{border-top:1px solid var(--cream-dark)}
-.metric-grid:first-of-type{border-top:none}
-.metric-cell{padding:11px 0 10px;text-align:center;border-right:1px solid var(--cream-dark);border-top:1px solid var(--cream-dark)}
+.metric-cell{padding:10px 0 9px;text-align:center;border-right:1px solid var(--cream-dark);border-top:1px solid var(--cream-dark)}
 .metric-cell:last-child{border-right:none}
-.metric-label{font-size:10px;color:var(--gray-light);margin-bottom:5px;letter-spacing:0.02em}
-.metric-val{font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:600;line-height:1.1}
+.metric-label{font-size:10px;color:var(--gray-light);margin-bottom:4px}
+.metric-val{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;line-height:1.1}
 .metric-sub{font-size:10px;color:var(--gray-light);margin-top:2px}
 .v-confirmed{color:var(--text)}
 .v-estimated{color:var(--gold)}
-.v-none{color:var(--cream-dark)}
+.v-none{color:var(--gray-light)}
 .v-discard{color:var(--red)}
 .v-zero{color:var(--gray-light)}
-.legend{display:flex;gap:14px;justify-content:center;margin-top:8px;font-size:11px;color:var(--gray-light)}
+.legend{display:flex;gap:14px;justify-content:center;margin-top:10px;font-size:11px;color:var(--gray-light)}
 .legend span{display:flex;align-items:center;gap:4px}
 .legend .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-/* INPUT */
+
+/* ── INPUT ───────────────────────────────────── */
 .type-list{display:flex;flex-direction:column;gap:8px}
-.type-card{display:flex;align-items:center;gap:14px;padding:15px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:left;width:100%;font-family:inherit}
+.type-card{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;text-align:left;width:100%;font-family:inherit}
 .type-card.done{border-color:var(--green)}
 .type-card:active{background:var(--cream)}
-.type-icon{font-size:20px;width:28px;text-align:center;flex-shrink:0}
+.type-icon{font-size:19px;width:26px;text-align:center;flex-shrink:0}
 .done-icon{color:var(--green)}
 .pending-icon{color:var(--burg)}
 .type-info{flex:1}
@@ -103,20 +120,46 @@ nav{display:flex;border-top:1px solid var(--border);background:var(--white);flex
 .type-sub{font-size:12px;color:var(--gray);margin-top:2px}
 .type-status{font-size:12px;font-weight:500;color:var(--green)}
 .type-arrow{color:var(--gray-light);font-size:20px}
+
+/* 수량 입력 폼 */
 .qty-form{margin-bottom:14px;background:var(--white);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
-.qty-row{display:flex;align-items:center;padding:12px 14px;justify-content:space-between;border-top:1px solid var(--cream-dark)}
+.qty-cake-head{padding:8px 14px 7px;background:var(--bg);border-bottom:1px solid var(--cream-dark)}
+.qty-cake-name{font-size:13px;font-weight:500}
+.qty-cake-type{font-size:10px;color:var(--gray-light);margin-top:1px}
+
+/* 홀케이크 행 */
+.qty-row{display:flex;align-items:center;padding:11px 14px;justify-content:space-between;border-top:1px solid var(--cream-dark)}
 .qty-row:first-child{border-top:none}
-.qty-name{font-size:13px;flex:1;padding-right:10px}
-.qty-type{font-size:10px;color:var(--gray-light);margin-top:1px}
-.qty-ctrl{display:flex;align-items:center;gap:8px}
-.qty-dec,.qty-inc{width:34px;height:34px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.qty-row-label{font-size:12px;color:var(--gray);min-width:32px}
+
+/* 숫자 직접입력 컨트롤 */
+.qty-ctrl{display:flex;align-items:center;gap:6px}
+.qty-dec,.qty-inc{width:32px;height:32px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0}
 .qty-dec{background:var(--cream);color:var(--text)}
 .qty-inc{background:var(--burg);color:white}
-.qty-val{font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:600;min-width:40px;text-align:center}
-.save-btn{width:100%;padding:15px;background:var(--burg);color:white;border:none;border-radius:var(--radius);font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;transition:background 0.2s}
+.qty-dec:active{background:var(--cream-dark)}
+.qty-inc:active{opacity:0.8}
+.qty-num-input{width:54px;height:32px;border:1.5px solid var(--border);border-radius:var(--radius-sm);text-align:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;color:var(--text);background:var(--bg);outline:none;-moz-appearance:textfield}
+.qty-num-input:focus{border-color:var(--burg);background:var(--white)}
+.qty-num-input::-webkit-inner-spin-button,.qty-num-input::-webkit-outer-spin-button{-webkit-appearance:none}
+.qty-unit{font-size:12px;color:var(--gray);min-width:18px}
+
+/* 조각 이중입력 */
+.qty-jo-wrap{border-top:1px solid var(--cream-dark);padding:10px 14px;display:flex;gap:12px;align-items:center}
+.qty-jo-field{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.qty-jo-label{font-size:11px;color:var(--gray);font-weight:500}
+.qty-jo-ctrl{display:flex;align-items:center;gap:5px}
+.qty-jo-num{width:48px;height:32px;border:1.5px solid var(--border);border-radius:var(--radius-sm);text-align:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:600;color:var(--text);background:var(--bg);outline:none;-moz-appearance:textfield}
+.qty-jo-num:focus{border-color:var(--burg);background:var(--white)}
+.qty-jo-num::-webkit-inner-spin-button,.qty-jo-num::-webkit-outer-spin-button{-webkit-appearance:none}
+.qty-jo-divider{width:1px;background:var(--cream-dark);align-self:stretch}
+.qty-jo-total{font-size:11px;color:var(--gray-light);text-align:center;padding:6px 14px 10px;border-top:1px solid var(--cream-dark)}
+
+.save-btn{width:100%;padding:14px;background:var(--burg);color:white;border:none;border-radius:var(--radius);font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;transition:background 0.2s}
 .save-btn:disabled{opacity:0.45;cursor:default}
 .save-btn.success{background:var(--green)}
-/* MENU */
+
+/* ── MENU ────────────────────────────────────── */
 .add-form{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:16px;margin-bottom:20px}
 .form-label{font-size:11px;font-weight:500;color:var(--gray);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px}
 .text-input{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:14px;color:var(--text);background:var(--bg);outline:none;margin-bottom:10px}
@@ -146,105 +189,155 @@ nav{display:flex;border-top:1px solid var(--border);background:var(--white);flex
 </head>
 <body>
 <div id="app">
-  <div id="setup" style="display:none">
-    <div class="setup-logo">La Terrasse de Paris</div>
-    <div class="setup-title">재고 관리 시스템</div>
-    <div class="setup-sub">Google Apps Script URL을 입력하면<br>설정이 완료됩니다</div>
-    <input id="script-url-input" class="setup-input" type="url" placeholder="https://script.google.com/macros/s/..." autocomplete="off" autocorrect="off" spellcheck="false">
-    <button class="btn-primary" id="setup-save-btn">시작하기</button>
-    <p class="setup-hint">Apps Script 배포 > 웹 앱으로 배포 후<br>생성된 URL을 붙여넣으세요</p>
-  </div>
-  <header id="header" style="display:none">
+  <header>
     <div class="hdr-inner">
       <div class="hdr-logo">La Terrasse de Paris</div>
       <div class="hdr-row">
-        <div>
-          <button class="hdr-back" id="back-btn" style="display:none">← 유형 선택</button>
-          <div class="hdr-title" id="hdr-title">재고 현황</div>
-          <div class="hdr-date" id="hdr-date"></div>
+        <div class="hdr-left">
+          <button class="hdr-back" id="back-btn" style="display:none">← 목록</button>
+          <div>
+            <div class="hdr-title" id="hdr-title">재고 현황</div>
+            <div class="hdr-date" id="hdr-date"></div>
+          </div>
         </div>
         <button class="hdr-refresh" id="refresh-btn">↻</button>
       </div>
     </div>
+    <div class="top-nav">
+      <button class="top-nav-btn active" data-tab="dash">현황</button>
+      <button class="top-nav-btn" data-tab="input">입력</button>
+      <button class="top-nav-btn" data-tab="menu">메뉴</button>
+    </div>
+    <div class="top-nav-line"></div>
   </header>
-  <div id="content" style="display:none"></div>
-  <nav id="nav" style="display:none">
-    <button class="nav-btn active" data-tab="dash"><span class="nav-icon">◈</span><span class="nav-label">현황</span></button>
-    <button class="nav-btn" data-tab="input"><span class="nav-icon">✦</span><span class="nav-label">입력</span></button>
-    <button class="nav-btn" data-tab="menu"><span class="nav-icon">❈</span><span class="nav-label">메뉴</span></button>
-  </nav>
+
+  <div id="content"></div>
 </div>
+
 <script>
-const SCRIPT_URL_KEY='lt_script_url';
-const DEF_CAKES=[
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzqhqXxVmoMcoMaJCAKgqDFDGgjxQcunnRTAkxMvSxqnxYFEfINrsRaMp0Vl0bpOn_xrg/exec';
+
+const DEF_CAKES = [
   {id:'1',name:'스트로베리 쇼트케이크',type:'홀',active:true},
   {id:'2',name:'말차 가나슈',type:'홀',active:true},
   {id:'3',name:'얼그레이 베리',type:'홀',active:true},
   {id:'4',name:'티라미수',type:'조각',active:true},
   {id:'5',name:'흑임자 크림치즈',type:'조각',active:true},
 ];
-const TYPES=[
+const TYPES = [
   {id:'production',  label:'아침 생산', sub:'본점 생산 완료 후',  icon:'☀'},
   {id:'transfer_out',label:'이송 출고', sub:'본점 → 킨텍스 발송', icon:'▶'},
   {id:'transfer_in', label:'이송 수령', sub:'킨텍스 수령 확인',   icon:'◆'},
   {id:'closing_b',   label:'마감 재고', sub:'본점 영업 마감',     icon:'◐'},
   {id:'closing_k',   label:'마감 재고', sub:'킨텍스 영업 마감',   icon:'◑'},
 ];
-const state={
-  scriptUrl:'https://script.google.com/macros/s/AKfycbzqhqXxVmoMcoMaJCAKgqDFDGgjxQcunnRTAkxMvSxqnxYFEfINrsRaMp0Vl0bpOn_xrg/exec',
-  tab:'dash',cakes:[],
-  log:{},logY:{},logD:{},
-  loading:false,error:null,
-  selectedType:null,inputVals:{},saving:false,saved:false,
-  editId:null,editName:'',newName:'',newType:'홀',
+
+const state = {
+  tab:'dash', cakes:[],
+  log:{}, logY:{}, logD:{},
+  loading:false, error:null,
+  selectedType:null, inputVals:{}, saving:false, saved:false,
+  editId:null, editName:'', newName:'', newType:'홀',
 };
 
+/* ── 날짜 ────────────────────────────────────── */
 function getDateStr(offset=0){
-  const d=new Date(),off=d.getTimezoneOffset();
+  const d=new Date(), off=d.getTimezoneOffset();
   const loc=new Date(d.getTime()-off*60000);
   loc.setDate(loc.getDate()+offset);
   return loc.toISOString().split('T')[0];
 }
 function toKorDate(s){
-  const w=['일','월','화','수','목','금','토'],d=new Date(s+'T00:00:00');
+  const w=['일','월','화','수','목','금','토'], d=new Date(s+'T00:00:00');
   return `${d.getMonth()+1}월 ${d.getDate()}일 (${w[d.getDay()]})`;
 }
+
+/* ── 재고 계산 ───────────────────────────────── */
 function isDone(id){const d=state.log[id];return d&&Object.keys(d).length>0;}
 
-function getStock(cakeId,store,log){
+// 조각케이크는 pan_ID, jogak_ID 키로 저장 → 총 조각수 반환
+function joTotal(obj, id){
+  if(obj===null||obj===undefined)return null;
+  const pan = obj[`pan_${id}`];
+  const jogak = obj[`jogak_${id}`];
+  if(pan===undefined&&jogak===undefined)return null;
+  return (pan||0)*8 + (jogak||0);
+}
+function joDisplay(obj, id){
+  if(!obj)return null;
+  const pan=obj[`pan_${id}`]??0, jogak=obj[`jogak_${id}`]??0;
+  if(pan===0&&jogak===0)return '0';
+  if(pan===0)return `${jogak}조각`;
+  if(jogak===0)return `${pan}판`;
+  return `${pan}판 ${jogak}조각`;
+}
+
+function getStock(cakeId, cake, store, log){
+  const isJo = cake.type==='조각';
   if(store==='b'){
-    if(log.closing_b?.[cakeId]!==undefined)return{v:log.closing_b[cakeId],s:'confirmed'};
-    if(log.production?.[cakeId]!==undefined)return{v:log.production[cakeId]-(log.transfer_out?.[cakeId]||0),s:'estimated'};
+    if(isJo){
+      const t=joTotal(log.closing_b, cakeId);
+      if(t!==null)return{v:t,s:'confirmed'};
+      const p=joTotal(log.production, cakeId);
+      if(p!==null){
+        const out=joTotal(log.transfer_out, cakeId)||0;
+        return{v:p-out,s:'estimated'};
+      }
+    }else{
+      if(log.closing_b?.[cakeId]!==undefined)return{v:log.closing_b[cakeId],s:'confirmed'};
+      if(log.production?.[cakeId]!==undefined)return{v:log.production[cakeId]-(log.transfer_out?.[cakeId]||0),s:'estimated'};
+    }
     return{v:null,s:'none'};
   }else{
-    if(log.closing_k?.[cakeId]!==undefined)return{v:log.closing_k[cakeId],s:'confirmed'};
-    if(log.transfer_in?.[cakeId]!==undefined)return{v:log.transfer_in[cakeId],s:'estimated'};
+    if(isJo){
+      const t=joTotal(log.closing_k, cakeId);
+      if(t!==null)return{v:t,s:'confirmed'};
+      const r=joTotal(log.transfer_in, cakeId);
+      if(r!==null)return{v:r,s:'estimated'};
+    }else{
+      if(log.closing_k?.[cakeId]!==undefined)return{v:log.closing_k[cakeId],s:'confirmed'};
+      if(log.transfer_in?.[cakeId]!==undefined)return{v:log.transfer_in[cakeId],s:'estimated'};
+    }
     return{v:null,s:'none'};
   }
 }
+
 function getMetrics(cake){
-  const id=cake.id;
-  const yB=state.logY.closing_b?.[id]??0, yK=state.logY.closing_k?.[id]??0;
+  const id=cake.id, isJo=cake.type==='조각';
+  let yB,yK;
+  if(isJo){
+    yB=joTotal(state.logY.closing_b,id)??0;
+    yK=joTotal(state.logY.closing_k,id)??0;
+  }else{
+    yB=state.logY.closing_b?.[id]??0;
+    yK=state.logY.closing_k?.[id]??0;
+  }
   const carryover=yB+yK;
-  const produced=state.log.production?.[id]??null;
-  const stB=getStock(id,'b',state.log), stK=getStock(id,'k',state.log);
+
+  let produced=null;
+  if(isJo){produced=joTotal(state.log.production,id);}
+  else{produced=state.log.production?.[id]??null;}
+
+  const stB=getStock(id,cake,'b',state.log), stK=getStock(id,cake,'k',state.log);
   let total=null;
   if(stB.v!==null&&stK.v!==null)total=stB.v+stK.v;
   else if(stB.v!==null)total=stB.v;
   else if(stK.v!==null)total=stK.v;
-  const dB=state.logD.closing_b?.[id]??0, dK=state.logD.closing_k?.[id]??0;
+
+  let dB,dK;
+  if(isJo){dB=joTotal(state.logD.closing_b,id)??0;dK=joTotal(state.logD.closing_k,id)??0;}
+  else{dB=state.logD.closing_b?.[id]??0;dK=state.logD.closing_k?.[id]??0;}
   const dayBefore=dB+dK;
   const discard=(dayBefore>0&&carryover>0)?Math.min(dayBefore,carryover):0;
   return{carryover,produced,stB,stK,total,discard};
 }
 
+/* ── API ─────────────────────────────────────── */
 async function apiGet(params){
-  const url=state.scriptUrl+'?'+new URLSearchParams(params);
-  const res=await fetch(url,{redirect:'follow',cache:'no-cache'});
+  const res=await fetch(SCRIPT_URL+'?'+new URLSearchParams(params),{redirect:'follow',cache:'no-cache'});
   return res.json();
 }
 async function loadAll(){
-  if(!state.scriptUrl)return;
   state.loading=true;state.error=null;render();
   try{
     const[cakes,log,logY,logD]=await Promise.all([
@@ -264,10 +357,10 @@ async function loadAll(){
   state.loading=false;render();
 }
 function loadLocalCakes(){
-  try{const s=localStorage.getItem('lt_cakes_local');if(s)return JSON.parse(s);}catch(e){}
+  try{const s=localStorage.getItem('lt_cakes');if(s)return JSON.parse(s);}catch(e){}
   return JSON.parse(JSON.stringify(DEF_CAKES));
 }
-function saveLocalCakes(c){try{localStorage.setItem('lt_cakes_local',JSON.stringify(c));}catch(e){}}
+function saveLocalCakes(c){try{localStorage.setItem('lt_cakes',JSON.stringify(c));}catch(e){}}
 async function saveCakes(cakes){
   saveLocalCakes(cakes);
   try{await apiGet({action:'saveCakes',data:JSON.stringify(cakes)});}catch(e){}
@@ -276,6 +369,7 @@ async function saveLog(typeId,vals){
   try{await apiGet({action:'saveLog',date:getDateStr(0),type:typeId,data:JSON.stringify(vals)});}catch(e){}
 }
 
+/* ── DOM 유틸 ────────────────────────────────── */
 function el(tag,attrs,...children){
   const e=document.createElement(tag);
   if(attrs)Object.entries(attrs).forEach(([k,v])=>{
@@ -285,34 +379,30 @@ function el(tag,attrs,...children){
     else if(typeof v==='boolean'){if(v)e.setAttribute(k,'');else e.removeAttribute(k);}
     else e.setAttribute(k,v);
   });
-  children.flat().forEach(c=>{
-    if(c==null)return;
-    e.appendChild(typeof c==='string'?document.createTextNode(c):c);
-  });
+  children.flat().forEach(c=>{if(c==null)return;e.appendChild(typeof c==='string'?document.createTextNode(c):c);});
   return e;
 }
 
+/* ── RENDER ──────────────────────────────────── */
 function render(){
-  const has=!!state.scriptUrl;
-  document.getElementById('setup').style.display='none';
-  document.getElementById('header').style.display='';
-  document.getElementById('content').style.display='';
-  document.getElementById('nav').style.display='';
-  
   document.getElementById('hdr-date').textContent=toKorDate(getDateStr(0));
   const back=document.getElementById('back-btn');
+  const titles={dash:'재고 현황',input:'입력',menu:'케이크 메뉴'};
   if(state.tab==='input'&&state.selectedType){
     document.getElementById('hdr-title').textContent=state.selectedType.label+' · '+state.selectedType.sub.split(' ')[0];
     back.style.display='';
   }else{
-    document.getElementById('hdr-title').textContent={dash:'재고 현황',input:'입력',menu:'케이크 메뉴'}[state.tab];
+    document.getElementById('hdr-title').textContent=titles[state.tab];
     back.style.display='none';
   }
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===state.tab));
+  document.querySelectorAll('.top-nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===state.tab));
 
   const content=document.getElementById('content');
   content.innerHTML='';
-  if(state.loading){content.appendChild(el('div',{className:'loading-state'},el('div',{className:'loader'}),el('div',{className:'loading-text'},'데이터를 불러오는 중...')));return;}
+  if(state.loading){
+    content.appendChild(el('div',{className:'loading-state'},el('div',{className:'loader'}),el('div',{className:'loading-text'},'데이터를 불러오는 중...')));
+    return;
+  }
   if(state.error){
     const d=el('div',{className:'error-state'});
     const p=el('p');p.textContent=state.error;d.appendChild(p);
@@ -322,16 +412,68 @@ function render(){
   content.appendChild({dash:renderDash,input:renderInput,menu:renderMenu}[state.tab]());
 }
 
+/* ── DASHBOARD ───────────────────────────────── */
 function renderDash(){
   const frag=document.createDocumentFragment();
   const active=state.cakes.filter(c=>c.active);
 
+  /* 요약 표 */
+  const sumWrap=el('div',{className:'summary-wrap'});
+  const sumHead=el('div',{className:'summary-head'});
+  const shr=el('div',{className:'summary-head-row'});
+  ['케이크','본점','킨텍스','총재고','폐기'].forEach((t,i)=>{
+    const th=el('div',{className:'sth'},t);shr.appendChild(th);
+  });
+  sumHead.appendChild(shr);sumWrap.appendChild(sumHead);
+
+  if(active.length){
+    active.forEach(cake=>{
+      const m=getMetrics(cake);
+      const isJo=cake.type==='조각';
+      const row=el('div',{className:'summary-row'+(m.discard>0?' discard-row':'')});
+
+      // 이름
+      const nameCell=el('div');
+      nameCell.appendChild(el('div',{className:'s-name'},cake.name));
+      nameCell.appendChild(el('div',{className:'s-unit'},isJo?'조각':'홀'));
+      row.appendChild(nameCell);
+
+      function sval(v,cls,sub){
+        const c=el('div',{style:{textAlign:'center'}});
+        const n=el('div',{className:'s-val '+cls});
+        n.textContent=v!==null?String(v):'—';
+        c.appendChild(n);
+        if(sub){const s=el('div',{className:'s-sub'});s.textContent=sub;c.appendChild(s);}
+        return c;
+      }
+      function stCls(st){
+        if(st.s==='confirmed')return st.v>0?'sv-ok':'sv-zero';
+        if(st.s==='estimated')return 'sv-est';
+        return 'sv-none';
+      }
+
+      row.appendChild(sval(m.stB.v,stCls(m.stB),m.stB.s==='confirmed'?'마감':m.stB.s==='estimated'?'추정':null));
+      row.appendChild(sval(m.stK.v,stCls(m.stK),m.stK.s==='confirmed'?'마감':m.stK.s==='estimated'?'추정':null));
+      row.appendChild(sval(m.total!==null?m.total:'—',m.total?'sv-ok':'sv-none',null));
+      row.appendChild(sval(m.discard,'sv-discard',m.discard>0?'⚠':null));
+
+      sumWrap.appendChild(row);
+    });
+  }else{
+    const empty=el('div',{style:{padding:'16px',textAlign:'center',fontSize:'13px',color:'var(--gray-light)'}});
+    empty.textContent='케이크 메뉴를 등록해주세요';
+    sumWrap.appendChild(empty);
+  }
+  frag.appendChild(sumWrap);
+
+  /* 체크 칩 */
   const chips=el('div',{className:'status-chips'});
   TYPES.forEach(t=>chips.appendChild(el('span',{className:'chip '+(isDone(t.id)?'done':'todo')},(isDone(t.id)?'✓ ':'')+t.label)));
   frag.appendChild(chips);
 
-  if(!active.length){frag.appendChild(el('div',{className:'empty-state'},'케이크 메뉴를 먼저 등록해주세요'));return frag;}
+  if(!active.length)return frag;
 
+  /* 폐기 배너 */
   const totalDiscard=active.reduce((s,c)=>s+getMetrics(c).discard,0);
   if(totalDiscard>0){
     const ban=el('div',{className:'discard-banner'});
@@ -342,6 +484,7 @@ function renderDash(){
     ban.appendChild(txt);frag.appendChild(ban);
   }
 
+  /* 상세 카드 */
   function makeSection(list,label){
     if(!list.length)return;
     frag.appendChild(el('div',{className:'section-title'},label));
@@ -353,46 +496,36 @@ function renderDash(){
       head.appendChild(el('span',{className:'cake-badge '+(cake.type==='홀'?'badge-hol':'badge-jo')},cake.type));
       card.appendChild(head);
 
-      function cell(label,val,cls,sub){
+      function cell(lbl,val,cls,sub){
         const c=el('div',{className:'metric-cell'});
-        c.appendChild(el('div',{className:'metric-label'},label));
+        c.appendChild(el('div',{className:'metric-label'},lbl));
         const v=el('div',{className:'metric-val '+cls});
         v.textContent=val!==null?String(val):'—';
         c.appendChild(v);
         c.appendChild(el('div',{className:'metric-sub'},sub||''));
         return c;
       }
-      function stCls(st){
-        if(st.s==='confirmed')return st.v>0?'v-confirmed':'v-zero';
-        if(st.s==='estimated')return 'v-estimated';
-        return 'v-none';
-      }
-      function stSub(st){
-        if(st.v===null)return '—';
-        return st.s==='confirmed'?'마감':'추정';
-      }
+      function stCls2(st){if(st.s==='confirmed')return st.v>0?'v-confirmed':'v-zero';if(st.s==='estimated')return 'v-estimated';return 'v-none';}
+      function stSub(st){if(st.v===null)return '—';return st.s==='confirmed'?'마감':'추정';}
 
       const r1=el('div',{className:'metric-grid'});
       r1.appendChild(cell('전날 이월',m.carryover,m.carryover>0?'v-confirmed':'v-zero','전체'));
       r1.appendChild(cell('당일 생산',m.produced!==null?m.produced:'—',m.produced!==null?(m.produced>0?'v-confirmed':'v-zero'):'v-none',m.produced!==null?'생산':'미입력'));
-      r1.appendChild(cell('총 재고',m.total!==null?m.total:'—',m.total!==null?(m.total>0?'v-confirmed':'v-zero'):'v-none',m.total!==null?'본점+킨텍스':'—'));
+      r1.appendChild(cell('총 재고',m.total!==null?m.total:'—',m.total!==null?(m.total>0?'v-confirmed':'v-zero'):'v-none',m.total!==null?'본+킨':'—'));
       card.appendChild(r1);
-
       const r2=el('div',{className:'metric-grid'});
-      r2.appendChild(cell('본점',m.stB.v,stCls(m.stB),stSub(m.stB)));
-      r2.appendChild(cell('킨텍스',m.stK.v,stCls(m.stK),stSub(m.stK)));
+      r2.appendChild(cell('본점',m.stB.v,stCls2(m.stB),stSub(m.stB)));
+      r2.appendChild(cell('킨텍스',m.stK.v,stCls2(m.stK),stSub(m.stK)));
       r2.appendChild(cell('폐기 예정',m.discard,m.discard>0?'v-discard':'v-zero',m.discard>0?'3일차 ⚠':'없음'));
       card.appendChild(r2);
-
       frag.appendChild(card);
     });
   }
-
   makeSection(active.filter(c=>c.type==='홀'),'홀케이크');
   makeSection(active.filter(c=>c.type==='조각'),'조각케이크');
 
   const leg=el('div',{className:'legend'});
-  [['var(--text)','마감 확정'],['var(--gold)','추정값'],['var(--red)','폐기 예정']].forEach(([c,l])=>{
+  [['var(--text)','마감'],['var(--gold)','추정'],['var(--red)','폐기']].forEach(([c,l])=>{
     const s=el('span');
     s.appendChild(el('span',{className:'dot',style:{background:c}}));
     s.appendChild(document.createTextNode(l));
@@ -402,6 +535,7 @@ function renderDash(){
   return frag;
 }
 
+/* ── INPUT ───────────────────────────────────── */
 function renderInput(){
   const frag=document.createDocumentFragment();
   if(!state.selectedType){
@@ -417,39 +551,118 @@ function renderInput(){
       list.appendChild(card);
     });
     frag.appendChild(list);
-  }else{
-    const active=state.cakes.filter(c=>c.active);
-    const form=el('div',{className:'qty-form'});
-    active.forEach(c=>{
-      const row=el('div',{className:'qty-row'});
-      const info=el('div');
-      info.appendChild(el('div',{className:'qty-name'},c.name));
-      info.appendChild(el('div',{className:'qty-type'},c.type==='홀'?'홀케이크':'조각케이크'));
-      const ctrl=el('div',{className:'qty-ctrl'});
-      ctrl.appendChild(el('button',{className:'qty-dec',onClick:()=>{state.inputVals[c.id]=Math.max(0,(state.inputVals[c.id]||0)-1);render();}},el('span',{},'−')));
-      ctrl.appendChild(el('div',{className:'qty-val'},String(state.inputVals[c.id]||0)));
-      ctrl.appendChild(el('button',{className:'qty-inc',onClick:()=>{state.inputVals[c.id]=(state.inputVals[c.id]||0)+1;render();}},el('span',{},'＋')));
-      row.appendChild(info);row.appendChild(ctrl);form.appendChild(row);
-    });
-    frag.appendChild(form);
-    frag.appendChild(el('button',{
-      className:'save-btn'+(state.saved?' success':''),
-      disabled:state.saving,
-      onClick:async()=>{
-        state.saving=true;render();
-        try{
-          await saveLog(state.selectedType.id,state.inputVals);
-          if(!state.log[state.selectedType.id])state.log[state.selectedType.id]={};
-          Object.assign(state.log[state.selectedType.id],state.inputVals);
-          state.saving=false;state.saved=true;render();
-          setTimeout(()=>{state.saved=false;state.selectedType=null;render();},1600);
-        }catch(e){state.saving=false;alert('저장 실패. 다시 시도하세요.');render();}
-      }
-    },state.saved?'✓  저장 완료':state.saving?'저장 중...':'저장하기'));
+    return frag;
   }
+
+  const active=state.cakes.filter(c=>c.active);
+  const form=el('div',{className:'qty-form'});
+
+  active.forEach(cake=>{
+    const id=cake.id, isJo=cake.type==='조각';
+    // 케이크 헤더
+    const head=el('div',{className:'qty-cake-head'});
+    head.appendChild(el('div',{className:'qty-cake-name'},cake.name));
+    head.appendChild(el('div',{className:'qty-cake-type'},isJo?'조각케이크 · 판 + 조각 각각 입력':'홀케이크 · 1호 단위'));
+    form.appendChild(head);
+
+    if(!isJo){
+      // 홀케이크: 기존 방식 + 숫자직접입력
+      const row=el('div',{className:'qty-row'});
+      row.appendChild(el('div',{className:'qty-row-label'},'수량'));
+      const ctrl=el('div',{className:'qty-ctrl'});
+
+      const dec=el('button',{className:'qty-dec',onClick:()=>{
+        state.inputVals[id]=Math.max(0,(state.inputVals[id]||0)-1);
+        numInp.value=state.inputVals[id];
+      }},'−');
+
+      const numInp=el('input',{
+        className:'qty-num-input',type:'number',min:'0',
+        value:String(state.inputVals[id]||0),
+        onInput:e=>{const v=parseInt(e.target.value)||0;state.inputVals[id]=Math.max(0,v);},
+        onFocus:e=>{e.target.select();},
+      });
+
+      const inc=el('button',{className:'qty-inc',onClick:()=>{
+        state.inputVals[id]=(state.inputVals[id]||0)+1;
+        numInp.value=state.inputVals[id];
+      }},'＋');
+
+      ctrl.appendChild(dec);ctrl.appendChild(numInp);ctrl.appendChild(inc);
+      ctrl.appendChild(el('div',{className:'qty-unit'},'개'));
+      row.appendChild(ctrl);
+      form.appendChild(row);
+    }else{
+      // 조각케이크: 판 + 조각 분리 입력
+      const panKey=`pan_${id}`, jogakKey=`jogak_${id}`;
+      const panVal=state.inputVals[panKey]||0;
+      const jogakVal=state.inputVals[jogakKey]||0;
+
+      const joWrap=el('div',{className:'qty-jo-wrap'});
+
+      function makeJoField(label, key, curVal){
+        const field=el('div',{className:'qty-jo-field'});
+        field.appendChild(el('div',{className:'qty-jo-label'},label));
+        const ctrl=el('div',{className:'qty-jo-ctrl'});
+
+        const numInp=el('input',{
+          className:'qty-jo-num',type:'number',min:'0',
+          value:String(curVal),
+          onInput:e=>{
+            const v=parseInt(e.target.value)||0;
+            state.inputVals[key]=Math.max(0,v);
+            updateTotal();
+          },
+          onFocus:e=>{e.target.select();},
+        });
+        const dec=el('button',{className:'qty-dec',style:{width:'28px',height:'28px',fontSize:'16px'},onClick:()=>{
+          state.inputVals[key]=Math.max(0,(state.inputVals[key]||0)-1);
+          numInp.value=state.inputVals[key];updateTotal();
+        }},'−');
+        const inc=el('button',{className:'qty-inc',style:{width:'28px',height:'28px',fontSize:'16px'},onClick:()=>{
+          state.inputVals[key]=(state.inputVals[key]||0)+1;
+          numInp.value=state.inputVals[key];updateTotal();
+        }},'＋');
+        ctrl.appendChild(dec);ctrl.appendChild(numInp);ctrl.appendChild(inc);
+        field.appendChild(ctrl);
+        return field;
+      }
+
+      joWrap.appendChild(makeJoField('판 (8조각)',panKey,panVal));
+      joWrap.appendChild(el('div',{className:'qty-jo-divider'}));
+      joWrap.appendChild(makeJoField('낱조각',jogakKey,jogakVal));
+      form.appendChild(joWrap);
+
+      // 합계 표시
+      const totalRow=el('div',{className:'qty-jo-total'});
+      const updateTotal=()=>{
+        const p=state.inputVals[panKey]||0, j=state.inputVals[jogakKey]||0;
+        totalRow.textContent=`합계 ${p*8+j}조각 (${p}판 × 8 + ${j}조각)`;
+      };
+      updateTotal();
+      form.appendChild(totalRow);
+    }
+  });
+
+  frag.appendChild(form);
+  frag.appendChild(el('button',{
+    className:'save-btn'+(state.saved?' success':''),
+    disabled:state.saving,
+    onClick:async()=>{
+      state.saving=true;render();
+      try{
+        await saveLog(state.selectedType.id,state.inputVals);
+        if(!state.log[state.selectedType.id])state.log[state.selectedType.id]={};
+        Object.assign(state.log[state.selectedType.id],state.inputVals);
+        state.saving=false;state.saved=true;render();
+        setTimeout(()=>{state.saved=false;state.selectedType=null;render();},1600);
+      }catch(e){state.saving=false;alert('저장 실패. 다시 시도하세요.');render();}
+    }
+  },state.saved?'✓  저장 완료':state.saving?'저장 중...':'저장하기'));
   return frag;
 }
 
+/* ── MENU ────────────────────────────────────── */
 function renderMenu(){
   const frag=document.createDocumentFragment();
   const af=el('div',{className:'add-form'});
@@ -480,8 +693,7 @@ function renderMenu(){
       item.appendChild(el('button',{className:'icon-btn',onClick:()=>{state.editId=c.id;state.editName=c.name;render();}},'✎'));
       item.appendChild(el('button',{className:'icon-btn del-btn',onClick:()=>doDelete(c.id)},'✕'));
       const sw=el('div',{className:'toggle-switch '+(c.active?'on':'off'),onClick:()=>doToggle(c.id)});
-      sw.appendChild(el('div',{className:'toggle-knob'}));
-      item.appendChild(sw);
+      sw.appendChild(el('div',{className:'toggle-knob'}));item.appendChild(sw);
     }
     list.appendChild(item);
   });
@@ -489,44 +701,38 @@ function renderMenu(){
   return frag;
 }
 
+/* ── ACTIONS ─────────────────────────────────── */
 async function doAdd(){
   if(!state.newName.trim())return;
   state.cakes=[...state.cakes,{id:Date.now().toString(),name:state.newName.trim(),type:state.newType,active:true}];
-  state.newName='';render();
-  try{await saveCakes(state.cakes);}catch(e){}
+  state.newName='';render();try{await saveCakes(state.cakes);}catch(e){}
 }
 async function doDelete(id){
   if(!confirm('삭제하시겠습니까?'))return;
-  state.cakes=state.cakes.filter(c=>c.id!==id);render();
-  try{await saveCakes(state.cakes);}catch(e){}
+  state.cakes=state.cakes.filter(c=>c.id!==id);render();try{await saveCakes(state.cakes);}catch(e){}
 }
 async function doToggle(id){
-  state.cakes=state.cakes.map(c=>c.id===id?{...c,active:!c.active}:c);render();
-  try{await saveCakes(state.cakes);}catch(e){}
+  state.cakes=state.cakes.map(c=>c.id===id?{...c,active:!c.active}:c);render();try{await saveCakes(state.cakes);}catch(e){}
 }
 async function doEditSave(id){
   if(!state.editName.trim())return;
   state.cakes=state.cakes.map(c=>c.id===id?{...c,name:state.editName.trim()}:c);
-  state.editId=null;render();
-  try{await saveCakes(state.cakes);}catch(e){}
+  state.editId=null;render();try{await saveCakes(state.cakes);}catch(e){}
 }
 
-document.getElementById('setup-save-btn').addEventListener('click',()=>{
-  const val=document.getElementById('script-url-input').value.trim();
-  if(!val.startsWith('https://script.google.com')){alert('올바른 Apps Script URL을 입력해주세요');return;}
-  state.scriptUrl=val;localStorage.setItem(SCRIPT_URL_KEY,val);render();loadAll();
-});
+/* ── EVENTS ──────────────────────────────────── */
 document.getElementById('back-btn').addEventListener('click',()=>{state.selectedType=null;render();});
 document.getElementById('refresh-btn').addEventListener('click',async()=>{
   const btn=document.getElementById('refresh-btn');
   btn.classList.add('spinning');await loadAll();btn.classList.remove('spinning');
 });
-document.querySelectorAll('.nav-btn').forEach(btn=>{
+document.querySelectorAll('.top-nav-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{state.tab=btn.dataset.tab;state.selectedType=null;state.saved=false;render();});
 });
 
+/* ── INIT ────────────────────────────────────── */
 render();
-if(state.scriptUrl)loadAll();
+loadAll();
 </script>
 </body>
 </html>
