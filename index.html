@@ -225,11 +225,10 @@ const DEF_CAKES = [
   {id:'5',name:'흑임자 크림치즈',type:'조각',active:true},
 ];
 const TYPES = [
-  {id:'production',  label:'아침 생산', sub:'본점 생산 완료 후',  icon:'☀'},
-  {id:'transfer_out',label:'이송 출고', sub:'본점 → 킨텍스 발송', icon:'▶'},
-  {id:'transfer_in', label:'이송 수령', sub:'킨텍스 수령 확인',   icon:'◆'},
-  {id:'closing_b',   label:'마감 재고', sub:'본점 영업 마감',     icon:'◐'},
-  {id:'closing_k',   label:'마감 재고', sub:'킨텍스 영업 마감',   icon:'◑'},
+  {id:'production', label:'아침 생산', sub:'본점 생산 완료 후',  icon:'☀'},
+  {id:'transfer',   label:'이송',     sub:'본점 → 킨텍스 발송량', icon:'▶'},
+  {id:'closing_b',  label:'마감 재고', sub:'본점 영업 마감',      icon:'◐'},
+  {id:'closing_k',  label:'마감 재고', sub:'킨텍스 영업 마감',    icon:'◑'},
 ];
 
 const state = {
@@ -280,23 +279,23 @@ function getStock(cakeId, cake, store, log){
       if(t!==null)return{v:t,s:'confirmed'};
       const p=joTotal(log.production, cakeId);
       if(p!==null){
-        const out=joTotal(log.transfer_out, cakeId)||0;
+        const out=joTotal(log.transfer, cakeId)||0;
         return{v:p-out,s:'estimated'};
       }
     }else{
       if(log.closing_b?.[cakeId]!==undefined)return{v:log.closing_b[cakeId],s:'confirmed'};
-      if(log.production?.[cakeId]!==undefined)return{v:log.production[cakeId]-(log.transfer_out?.[cakeId]||0),s:'estimated'};
+      if(log.production?.[cakeId]!==undefined)return{v:log.production[cakeId]-(log.transfer?.[cakeId]||0),s:'estimated'};
     }
     return{v:null,s:'none'};
   }else{
     if(isJo){
       const t=joTotal(log.closing_k, cakeId);
       if(t!==null)return{v:t,s:'confirmed'};
-      const r=joTotal(log.transfer_in, cakeId);
+      const r=joTotal(log.transfer, cakeId);
       if(r!==null)return{v:r,s:'estimated'};
     }else{
       if(log.closing_k?.[cakeId]!==undefined)return{v:log.closing_k[cakeId],s:'confirmed'};
-      if(log.transfer_in?.[cakeId]!==undefined)return{v:log.transfer_in[cakeId],s:'estimated'};
+      if(log.transfer?.[cakeId]!==undefined)return{v:log.transfer[cakeId],s:'estimated'};
     }
     return{v:null,s:'none'};
   }
