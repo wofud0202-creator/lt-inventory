@@ -340,16 +340,12 @@ async function apiGet(params){
 async function loadAll(){
   state.loading=true;state.error=null;render();
   try{
-    const[cakes,log,logY,logD]=await Promise.all([
-      apiGet({action:'getCakes'}),
-      apiGet({action:'getLog',date:getDateStr(0)}),
-      apiGet({action:'getLog',date:getDateStr(-1)}),
-      apiGet({action:'getLog',date:getDateStr(-2)}),
-    ]);
-    state.cakes=(Array.isArray(cakes)&&cakes.length)?cakes:loadLocalCakes();
-    state.log=(log&&!log.error)?log:{};
-    state.logY=(logY&&!logY.error)?logY:{};
-    state.logD=(logD&&!logD.error)?logD:{};
+    const data=await apiGet({action:'getAll'});
+    if(data.error)throw new Error(data.error);
+    state.cakes=(Array.isArray(data.cakes)&&data.cakes.length)?data.cakes:loadLocalCakes();
+    state.log=data.log||{};
+    state.logY=data.logY||{};
+    state.logD=data.logD||{};
   }catch(e){
     state.cakes=loadLocalCakes();
     state.error='Google Sheets 연결에 실패했습니다.\n잠시 후 다시 시도하세요.';
