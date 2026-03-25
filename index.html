@@ -271,20 +271,23 @@ function joDisplay(obj, id){
   return `${pan}판 ${jogak}조각`;
 }
 
-function getStock(cakeId, cake, store, log){
+function getStock(cakeId, cake, store, log, carryover){
   const isJo = cake.type==='조각';
   if(store==='b'){
     if(isJo){
       const t=joTotal(log.closing_b, cakeId);
       if(t!==null)return{v:t,s:'confirmed'};
+      const out=joTotal(log.transfer, cakeId)||0;
       const p=joTotal(log.production, cakeId);
-      if(p!==null){
-        const out=joTotal(log.transfer, cakeId)||0;
-        return{v:p-out,s:'estimated'};
-      }
+      if(p!==null)return{v:p-out,s:'estimated'};
+      // 생산 미입력 시 전날 이월 기반으로 계산
+      if(carryover>0)return{v:Math.max(0,carryover-out),s:'estimated'};
     }else{
       if(log.closing_b?.[cakeId]!==undefined)return{v:log.closing_b[cakeId],s:'confirmed'};
-      if(log.production?.[cakeId]!==undefined)return{v:log.production[cakeId]-(log.transfer?.[cakeId]||0),s:'estimated'};
+      const out=log.transfer?.[cakeId]||0;
+      if(log.production?.[cakeId]!==undefined)return{v:log.production[cakeId]-out,s:'estimated'};
+      // 생산 미입력 시 전날 이월 기반으로 계산
+      if(carryover>0)return{v:Math.max(0,carryover-out),s:'estimated'};
     }
     return{v:null,s:'none'};
   }else{
@@ -317,7 +320,7 @@ function getMetrics(cake){
   if(isJo){produced=joTotal(state.log.production,id);}
   else{produced=state.log.production?.[id]??null;}
 
-  const stB=getStock(id,cake,'b',state.log), stK=getStock(id,cake,'k',state.log);
+  const stB=getStock(id,cake,'b',state.log,carryover), stK=getStock(id,cake,'k',state.log,0);
   let total=null;
   if(stB.v!==null&&stK.v!==null)total=stB.v+stK.v;
   else if(stB.v!==null)total=stB.v;
