@@ -365,7 +365,8 @@ async function loadAll(){
     // 디버그: 로드 결과 요약
     const logKeys=Object.keys(state.log);
     const cakeCount=state.cakes.length;
-    state.debug=`✓ 케이크 ${cakeCount}종 · 오늘 로그: ${logKeys.length>0?logKeys.join(', '):'없음'}`;
+    const todayStr=getDateStr(0);
+    state.debug=`✓ 케이크 ${cakeCount}종 · 조회날짜: ${todayStr} · 로그: ${logKeys.length>0?logKeys.join(', '):'없음'}`;
   }catch(e){
     state.cakes=loadLocalCakes();
     state.debug='✗ API 실패: '+e.message;
