@@ -234,7 +234,7 @@ const TYPES = [
 const state = {
   tab:'dash', cakes:[],
   log:{}, logY:{}, logD:{},
-  loading:false, error:null,
+  loading:false, error:null, debug:null,
   selectedType:null, inputVals:{}, saving:false, saved:false,
   editId:null, editName:'', newName:'', newType:'홀',
 };
@@ -354,7 +354,7 @@ async function apiGet(params){
   return JSON.parse(text);
 }
 async function loadAll(){
-  state.loading=true;state.error=null;render();
+  state.loading=true;state.error=null;state.debug=null;render();
   try{
     const data=await apiGet({action:'getAll'});
     if(data.error)throw new Error(data.error);
@@ -362,8 +362,13 @@ async function loadAll(){
     state.log=data.log||{};
     state.logY=data.logY||{};
     state.logD=data.logD||{};
+    // 디버그: 로드 결과 요약
+    const logKeys=Object.keys(state.log);
+    const cakeCount=state.cakes.length;
+    state.debug=`✓ 케이크 ${cakeCount}종 · 오늘 로그: ${logKeys.length>0?logKeys.join(', '):'없음'}`;
   }catch(e){
     state.cakes=loadLocalCakes();
+    state.debug='✗ API 실패: '+e.message;
     state.error='Google Sheets 연결에 실패했습니다.\n잠시 후 다시 시도하세요.';
   }
   state.loading=false;render();
@@ -428,6 +433,18 @@ function render(){
 function renderDash(){
   const frag=document.createDocumentFragment();
   const active=state.cakes.filter(c=>c.active);
+
+  /* 디버그 바 */
+  if(state.debug){
+    const dbg=el('div',{style:{
+      fontSize:'11px',padding:'6px 12px',marginBottom:'10px',
+      borderRadius:'var(--radius-sm)',wordBreak:'break-all',lineHeight:'1.6',
+      background:state.debug.startsWith('✓')?'var(--green-bg)':'var(--red-bg)',
+      color:state.debug.startsWith('✓')?'var(--green)':'var(--red)',
+    }});
+    dbg.textContent=state.debug;
+    frag.appendChild(dbg);
+  }
 
   /* 요약 표 */
   const sumWrap=el('div',{className:'summary-wrap'});
