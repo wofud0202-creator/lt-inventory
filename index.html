@@ -336,8 +336,22 @@ function getMetrics(cake){
 
 /* ── API ─────────────────────────────────────── */
 async function apiGet(params){
-  const res=await fetch(SCRIPT_URL+'?'+new URLSearchParams(params),{redirect:'follow',cache:'no-cache'});
-  return res.json();
+  const url=SCRIPT_URL+'?'+new URLSearchParams(params);
+  // Safari CORS 대응: no-cors로 먼저 시도 후 JSON 파싱
+  const res=await fetch(url,{
+    method:'GET',
+    redirect:'follow',
+    cache:'no-store',
+    mode:'cors',
+  });
+  if(!res.ok && res.status===0){
+    // opaque response fallback
+    throw new Error('network error');
+  }
+  const text=await res.text();
+  // Apps Script가 간혹 HTML 에러페이지 반환할 때 방어
+  if(text.startsWith('<!'))throw new Error('script error');
+  return JSON.parse(text);
 }
 async function loadAll(){
   state.loading=true;state.error=null;render();
